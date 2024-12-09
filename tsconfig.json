@@ -1,0 +1,25 @@
+{
+  "extends": "@byte-creators/config/tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ],
+      "@packages/shared/*": [
+        "node_modules/@packages/shared/src/*"
+      ],
+      "host/*": ["./src/application/types/host.d.ts"]
+    },
+    "target": "ES2017"
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

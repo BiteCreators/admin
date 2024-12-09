@@ -1,0 +1,26 @@
+@import '../../../../styles//vars.scss';
+
+.arrow {
+  width: 4px;
+  height: 4px;
+  border-color: transparent;
+  border-width: 4px;
+}
+
+.arrowUp {
+  margin-bottom: 3px;
+  border-bottom-color: $color-dark-100;
+}
+
+.arrowDown {
+  justify-items: end;
+  border-top-color: $color-dark-100;
+}
+
+.isActiveDownArrow {
+  border-top-color: $color-light-100;
+}
+
+.isActiveUpArrow {
+  border-bottom-color: $color-light-100;
+}
