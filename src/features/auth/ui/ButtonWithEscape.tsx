@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-import { Button } from '@packages/shared/ui'
+import { Button } from '@byte-creators/ui-kit'
 
 export const ButtonWithEscape = () => {
   const [position, setPosition] = useState<{ x: number; y: number }>({ x: 0, y: 0 })

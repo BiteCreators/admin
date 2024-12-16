@@ -1,5 +1,5 @@
-import { Block, MoreHorizontalOutline, PersonRemoveOutline } from '@packages/shared/assets'
-import { Alert } from '@packages/shared/ui'
+import { Alert } from '@byte-creators/ui-kit'
+import { Block, MoreHorizontalOutline, PersonRemoveOutline } from '@byte-creators/ui-kit/icons'
 
 import s from './style.module.scss'
 

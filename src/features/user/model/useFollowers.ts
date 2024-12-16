@@ -4,7 +4,7 @@ import { SortDirection } from '@/common/__generated-types__/graphql'
 import { QueryParams } from '@/common/types/queryParams.type'
 import { GET_FOLLOWERS } from '@/features/user/api/followersQueries'
 import { useQuery } from '@apollo/client'
-import { useScopedTranslation } from '@packages/shared/hooks'
+import { useScopedTranslation } from '@byte-creators/utils'
 import { useRouter } from 'next/router'
 
 export const useFollowers = () => {

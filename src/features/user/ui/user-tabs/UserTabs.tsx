@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { TabsBase } from '@packages/shared/ui'
+import { TabsBase } from '@byte-creators/ui-kit'
 
 import { Followers } from '../followers/Followers'
 import { Following } from '../following/Following'

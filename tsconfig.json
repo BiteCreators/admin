@@ -1,17 +1,14 @@
 {
-  "extends": "@byte-creators/config/tsconfig.base.json",
+  "extends": "@byte-creators/config/tsconfig.next.json",
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
       "@/*": [
         "./src/*"
       ],
-      "@packages/shared/*": [
-        "node_modules/@packages/shared/src/*"
-      ],
-      "host/*": ["./src/application/types/host.d.ts"]
     },
-    "target": "ES2017"
+    "target": "ES2017",
+    "noEmit": false
   },
   "include": [
     "next-env.d.ts",

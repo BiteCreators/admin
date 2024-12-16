@@ -1,5 +1,5 @@
 import { UserBlockStatus } from '@/common/__generated-types__/graphql'
-import { Select, SelectItem } from '@packages/shared/ui'
+import { Select, SelectItem } from '@byte-creators/ui-kit'
 import { useRouter } from 'next/router'
 
 import style from './blockUsers.module.scss'

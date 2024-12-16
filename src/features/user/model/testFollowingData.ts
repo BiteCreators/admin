@@ -1,4 +1,4 @@
-import { FollowPaginationModel } from '../../users/types'
+import { FollowPaginationModel } from '@/common/__generated-types__/graphql'
 
 export const exampleFollowPaginationModel: FollowPaginationModel = {
   items: [

@@ -2,7 +2,7 @@ import { ReactNode, useEffect, useState } from 'react'
 import { useCookies } from 'react-cookie'
 
 import { AuthContext } from '@/common/lib/hooks/useAuth'
-import { LoaderBlock } from '@packages/shared/ui/loader/LoaderBlock'
+import { LoaderBlock } from '@byte-creators/ui-kit'
 import { useRouter } from 'next/router'
 
 type AuthProviderProps = {

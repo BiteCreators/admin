@@ -1,6 +1,6 @@
 import { GET_POSTS_BY_USER } from '@/features/user/api/postsQuery'
 import { useQuery } from '@apollo/client'
-import { Alert, Loader, Typography } from '@packages/shared/ui'
+import { Alert, Loader, Typography } from '@byte-creators/ui-kit'
 import { useRouter } from 'next/router'
 
 import style from './uploadedPhotos.module.scss'

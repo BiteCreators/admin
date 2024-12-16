@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import { useAuth } from '@/common/lib/hooks/useAuth'
 import { LOGIN_ADMIN } from '@/features/auth/api/loginAdminQueries'
 import { useMutation } from '@apollo/client'
-import { useScopedTranslation } from '@packages/shared/hooks'
+import { useScopedTranslation } from '@byte-creators/utils'
 
 type SignInFormValues = {
   email: string

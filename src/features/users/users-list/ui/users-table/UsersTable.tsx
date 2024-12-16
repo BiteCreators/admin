@@ -1,15 +1,10 @@
-import React from 'react'
-
-import { SortButton, SortBy } from '@/features/search-params'
 import { useUsers } from '@/features/users/users-list/model/useUsers'
-import { Block } from '@packages/shared/assets'
-import { Pagination, Table } from '@packages/shared/ui'
-import { TableHeader } from '@packages/shared/ui'
+import { Options } from '@/features/users/users-list/ui/options/Options'
+import { Pagination, Table, TableHeader } from '@byte-creators/ui-kit'
+import { Block } from '@byte-creators/ui-kit/icons'
 import Link from 'next/link'
 
 import s from './styles.module.scss'
-
-import { Options } from '../options/Options'
 
 export const UsersTable = () => {
   const {
@@ -42,20 +37,23 @@ export const UsersTable = () => {
       ),
     }
   })
+
   const headers: TableHeader[] = [
     {
       name: 'User ID',
     },
     {
       name: 'Username',
-      sort: <SortButton sortBy={SortBy.UserName} />,
+      //TODO: раскомментировать после фикса Table в uikit
+
+      // sort: <SortButton sortBy={SortBy.UserName} />,
     },
     {
       name: 'Profile link',
     },
     {
       name: 'Date added',
-      sort: <SortButton sortBy={SortBy.DateAdded} />,
+      // sort: <SortButton sortBy={SortBy.DateAdded} />,
     },
     {
       name: '',

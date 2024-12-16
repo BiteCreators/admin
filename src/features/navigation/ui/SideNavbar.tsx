@@ -1,6 +1,4 @@
-import { useContext } from 'react'
-
-import { AuthContext, AuthContextType } from '@/common/lib/hooks/useAuth'
+import { SideNavbarItem } from '@byte-creators/ui-kit'
 import {
   CreditCard,
   CreditCardOutline,
@@ -10,8 +8,7 @@ import {
   PersonOutline,
   TrendingUp,
   TrendingUpOutline,
-} from '@packages/shared/assets'
-import { SideNavbarItem } from '@packages/shared/ui/sideNavbar/SideNavbarItem'
+} from '@byte-creators/ui-kit/icons'
 
 import cl from '../ui/styles/sideNavbar.module.scss'
 

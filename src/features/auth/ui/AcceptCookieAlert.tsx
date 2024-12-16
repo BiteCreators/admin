@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import { ButtonWithEscape } from '@/features/auth/ui/ButtonWithEscape'
-import { Alert, Button, Typography } from '@packages/shared/ui'
+import { Alert, Button, Typography } from '@byte-creators/ui-kit'
 
 import cl from './styles/accept-cookie-alert.module.scss'
 

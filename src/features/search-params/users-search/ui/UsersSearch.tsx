@@ -1,6 +1,6 @@
 import { ChangeEvent, useState } from 'react'
 
-import { Input } from '@packages/shared/ui'
+import { Input } from '@byte-creators/ui-kit'
 import { useRouter } from 'next/router'
 
 import style from './usersSearch.module.scss'

@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 
-import { Select, SelectItem } from '@packages/shared/ui'
-import { ActionConfirmation } from '@packages/shared/ui/action-confirmation/ActionComfiirmation'
+import { ActionConfirmation, Select, SelectItem } from '@byte-creators/ui-kit'
 
 import s from './styles.module.scss'
 

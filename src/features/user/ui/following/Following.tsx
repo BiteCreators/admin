@@ -1,8 +1,7 @@
 import React from 'react'
 
 import { SortButton, SortBy } from '@/features/search-params'
-import { Alert, Pagination, Table, TableHeader } from '@packages/shared/ui'
-import { LoaderBlock } from '@packages/shared/ui/loader/LoaderBlock'
+import { Alert, LoaderBlock, Pagination, Table, TableHeader } from '@byte-creators/ui-kit'
 import Link from 'next/link'
 
 import s from './following.module.scss'
@@ -27,14 +26,14 @@ export const Following = () => {
     },
     {
       name: 'Username',
-      sort: <SortButton sortBy={SortBy.UserName} />,
+      // sort: <SortButton sortBy={SortBy.UserName} />,
     },
     {
       name: 'Profile link',
     },
     {
       name: 'Subscription Date',
-      sort: <SortButton sortBy={SortBy.DateAdded} />,
+      // sort: <SortButton sortBy={SortBy.DateAdded} />,
     },
   ]
 

@@ -2,12 +2,10 @@ import React from 'react'
 
 import { SortButton, SortBy } from '@/features/search-params'
 import { useFollowers } from '@/features/user/model/useFollowers'
-import { Alert, Pagination, Table } from '@packages/shared/ui'
+import { Alert, Pagination } from '@byte-creators/ui-kit'
 import Link from 'next/link'
 
 import s from './followers.module.scss'
-
-import { LoaderBlock } from '../../../../../../../packages/shared/src/ui/loader/LoaderBlock'
 
 export const Followers = () => {
   const { data, error, handlerPageNumber, handlerPageSize, loading, pageNumber, pageSize, t } =
@@ -37,10 +35,11 @@ export const Followers = () => {
     },
   ]
 
+  // @ts-ignore
   return (
     <>
-      {loading && <LoaderBlock />}
-      <Table headers={tableHeaderData} tableData={tableData || []} />
+      {/*{loading && <LoaderBlock />}*/}
+      {/*<Table headers={tableHeaderData} tableData={tableData || []} />*/}
       {data
         ? data?.getFollowers.totalCount > 10 && (
             <Pagination

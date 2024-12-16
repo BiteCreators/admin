@@ -2,8 +2,8 @@ import * as React from 'react'
 
 import { formatDate } from '@/common/lib/utils/formatDate'
 import { useGetUser } from '@/features/user/model/useGetUser'
-import { ArrowBackOutline } from '@packages/shared/assets'
-import { Alert, Avatar, Loader, Typography } from '@packages/shared/ui'
+import { Alert, Avatar, Loader, Typography } from '@byte-creators/ui-kit'
+import { ArrowBackOutline } from '@byte-creators/ui-kit/icons'
 import { useRouter } from 'next/router'
 
 import cl from './userHeader.module.scss'
