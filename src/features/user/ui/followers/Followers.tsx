@@ -2,7 +2,7 @@ import React from 'react'
 
 import { SortButton, SortBy } from '@/features/search-params'
 import { useFollowers } from '@/features/user/model/useFollowers'
-import { Alert, Pagination } from '@byte-creators/ui-kit'
+import { Alert, LoaderBlock, Pagination, Table } from '@byte-creators/ui-kit'
 import Link from 'next/link'
 
 import s from './followers.module.scss'
@@ -35,11 +35,11 @@ export const Followers = () => {
     },
   ]
 
-  // @ts-ignore
+  // TODO: fix types error
   return (
     <>
-      {/*{loading && <LoaderBlock />}*/}
-      {/*<Table headers={tableHeaderData} tableData={tableData || []} />*/}
+      {loading && <LoaderBlock />}
+      <Table headers={tableHeaderData} tableData={tableData || []} />
       {data
         ? data?.getFollowers.totalCount > 10 && (
             <Pagination

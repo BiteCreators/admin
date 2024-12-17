@@ -15,5 +15,10 @@ export const Header = () => {
     return null
   }
 
-  // return <AppBar content={<LanguageSelect />} logo={<AppLogo />} />
+  return (
+    <AppBar
+      // content={<LanguageSelect />}
+      logo={<AppLogo />}
+    />
+  )
 }

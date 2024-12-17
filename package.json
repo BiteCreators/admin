@@ -14,7 +14,7 @@
     "@apollo/client": "^3.11.10",
     "@byte-creators/config": "^1.0.5",
     "@byte-creators/ui-kit": "^1.1.10",
-    "@byte-creators/utils": "^1.1.1",
+    "@byte-creators/utils": "^1.2.0",
     "@graphql-codegen/cli": "^5.0.3",
     "@graphql-codegen/client-preset": "^4.5.1",
     "@graphql-typed-document-node/core": "^3.2.0",
@@ -28,8 +28,7 @@
     "react-cookie": "^7.2.0",
     "react-dom": "18",
     "react-hook-form": "^7.54.0",
-    "ts-node": "^10.9.2",
-    "webpack": "^5.96.1"
+    "ts-node": "^10.9.2"
   },
   "devDependencies": {
     "@it-incubator/eslint-config": "^1.0.3",

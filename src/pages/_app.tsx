@@ -10,6 +10,10 @@ import { NextPage } from 'next'
 
 import '@/styles/globals.css'
 
+//TODO: fix import
+
+// import '@byte-creators/ui-kit/styles'
+
 export type NextPageWithLayout<P = {}, IP = P> = {
   getLayout?: (page: React.ReactElement) => React.ReactNode
 } & NextPage<P, IP>

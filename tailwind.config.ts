@@ -3,13 +3,13 @@ import type { Config } from 'tailwindcss'
 import fs from 'fs'
 import path from 'path'
 
-// @ts-ignore
+//@ts-ignore
 import { tailwind } from '@byte-creators/config'
 import plugin from 'tailwindcss/plugin'
 
 const config: Config = {
   ...tailwind,
-  // content: ['./node_modules/@packages/shared/src/ui/**/*.{js,ts,jsx,tsx}'],
+  content: ['./node_modules/@byte-creators/ui-kit/dist/**/*.{js,ts,jsx,tsx}'],
   plugins: [
     ...(tailwind.plugins || []),
     plugin(({ addBase, theme }) => {
