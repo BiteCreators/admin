@@ -1,6 +1,9 @@
+import * as React from 'react'
+
+import { SortButton, SortBy } from '@/features/search-params'
 import { useUsers } from '@/features/users/users-list/model/useUsers'
 import { Options } from '@/features/users/users-list/ui/options/Options'
-import { Pagination, Table, TableHeader } from '@byte-creators/ui-kit'
+import { Alert, LoaderBlock, Pagination, Table, TableHeader } from '@byte-creators/ui-kit'
 import { Block } from '@byte-creators/ui-kit/icons'
 import Link from 'next/link'
 
@@ -15,6 +18,10 @@ export const UsersTable = () => {
     usersListError,
     usersListLoading,
   } = useUsers()
+
+  if (usersListLoading) {
+    return <LoaderBlock />
+  }
 
   const exampleUsersData = usersListData?.getUsers.users.map(user => {
     return {
@@ -44,16 +51,16 @@ export const UsersTable = () => {
     },
     {
       name: 'Username',
-      //TODO: раскомментировать после фикса Table в uikit
+      //TODO: раскомментировать после фикса Table в uikit + фикс типов
 
-      // sort: <SortButton sortBy={SortBy.UserName} />,
+      sort: <SortButton sortBy={SortBy.UserName} />,
     },
     {
       name: 'Profile link',
     },
     {
       name: 'Date added',
-      // sort: <SortButton sortBy={SortBy.DateAdded} />,
+      sort: <SortButton sortBy={SortBy.DateAdded} />,
     },
     {
       name: '',
@@ -62,6 +69,7 @@ export const UsersTable = () => {
 
   return (
     <div className={s.table}>
+      {usersListError && <Alert message={usersListError.message} type={'error'} />}
       <Table
         classNameHeadersItem={s.table__headers}
         headers={headers}

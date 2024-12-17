@@ -1,3 +1,5 @@
+import React from 'react'
+
 import { GET_POSTS_BY_USER } from '@/features/user/api/postsQuery'
 import { useQuery } from '@apollo/client'
 import { Alert, Loader, Typography } from '@byte-creators/ui-kit'
@@ -10,6 +12,10 @@ export const UploadedPhotos = () => {
   const { data, error, loading } = useQuery(GET_POSTS_BY_USER, {
     variables: { userId: Number(query.id) },
   })
+
+  if (data?.getPostsByUser.items?.length === 0) {
+    return <p>No Uploaded Photos</p>
+  }
 
   return (
     <div>

@@ -10,6 +10,10 @@ import s from './followers.module.scss'
 export const Followers = () => {
   const { data, error, handlerPageNumber, handlerPageSize, loading, pageNumber, pageSize, t } =
     useFollowers()
+
+  if (data?.getFollowers.totalCount === 0) {
+    return <p>No Followers</p>
+  }
   const tableData = data?.getFollowers.items.map(follower => ({
     1: follower.userId,
     2: follower.userName,
@@ -17,9 +21,6 @@ export const Followers = () => {
     4: new Date(follower.createdAt).toLocaleDateString(),
   }))
 
-  if (data?.getFollowers.totalCount === 0) {
-    return <p>No Followers</p>
-  }
   const tableHeaderData = [
     {
       name: t.userId,

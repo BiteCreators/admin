@@ -11,12 +11,13 @@ import cl from './userHeader.module.scss'
 type Props = {}
 export const UserHeader = ({}: Props) => {
   const { query } = useRouter()
+  const router = useRouter()
   const { data, error, loading } = useGetUser(Number(query.id))
   const user = data?.getUser
 
   const exampleImg =
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZ6th-oTbkDMbDOPGU_kkRMM55lfvRYgM8JA&s'
-  //todo: remove mock
+  //TODO: remove mock
 
   if (loading) {
     return <Loader />
@@ -28,10 +29,14 @@ export const UserHeader = ({}: Props) => {
   return (
     <div className={cl.currentUserContainer}>
       <div className={cl.back}>
-        <button>
-          <ArrowBackOutline />
+        <button
+          onClick={() => {
+            router.push('/users')
+          }}
+        >
+          <ArrowBackOutline viewBox={'0 3 20 20'} />
+          <Typography>Back to Users List</Typography>
         </button>
-        <Typography>Back to Users List</Typography>
       </div>
       <div className={cl.nameAndPhotoContainer}>
         <Avatar avatarURL={user.profile.avatars?.[0]?.url || exampleImg} className={cl.avatar} />

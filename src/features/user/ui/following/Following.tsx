@@ -12,6 +12,10 @@ export const Following = () => {
   const { data, error, handlerPageNumber, handlerPageSize, loading, pageNumber, pageSize } =
     useFollowing()
 
+  if (data?.getFollowing.totalCount === 0) {
+    return <p>No Following</p>
+  }
+
   const tableData = data?.getFollowing.items.map(el => {
     return {
       1: el.userId,
@@ -20,26 +24,23 @@ export const Following = () => {
       4: new Date(el.createdAt).toLocaleDateString(),
     }
   })
+  //TODO: fix types
   const tableHeaderData: TableHeader[] = [
     {
       name: 'User ID',
     },
     {
       name: 'Username',
-      // sort: <SortButton sortBy={SortBy.UserName} />,
+      sort: <SortButton sortBy={SortBy.UserName} />,
     },
     {
       name: 'Profile link',
     },
     {
       name: 'Subscription Date',
-      // sort: <SortButton sortBy={SortBy.DateAdded} />,
+      sort: <SortButton sortBy={SortBy.DateAdded} />,
     },
   ]
-
-  if (data?.getFollowing.totalCount === 0) {
-    return <p>No Followers</p>
-  }
 
   return (
     <>
