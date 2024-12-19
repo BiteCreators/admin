@@ -1,12 +1,17 @@
-import { gql } from '@/common/__generated-types__'
+import { gql } from '@apollo/client'
 
 export const GET_POSTS_BY_USER = gql(`
-    query GetPostsByUser($userId: Int!) {
-        getPostsByUser(userId: $userId) {
-        items{
+  query GetPostsByUser($userId: Int!, $endCursorId: Int) {
+    getPostsByUser(userId: $userId, endCursorId: $endCursorId) {
+      pagesCount
+      pageSize
+      totalCount
+      items {
+        id
+        url
         height
         width
-        url
-        }
       }
-    }`)
+    }
+  }
+`)
