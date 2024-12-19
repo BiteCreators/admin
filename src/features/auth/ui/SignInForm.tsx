@@ -1,8 +1,8 @@
 import { useSignIn } from '@/features/auth/model/useSignIn'
-import { AcceptCookieAlert } from '@/features/auth/ui/AcceptCookieAlert'
 import { Alert, Button, Card, FormInput, Typography } from '@byte-creators/ui-kit'
 
 import cl from './styles/sign-in-form.module.scss'
+import { AcceptCookieAlert } from './AcceptCookieAlert'
 
 export const SignInForm = () => {
   const { control, error, handleSubmit, onSubmit, setError, setUseCookie, t, useCookie } =

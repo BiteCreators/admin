@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { useAuth } from '@/common/lib/hooks/useAuth'
 import { LOGIN_ADMIN } from '@/features/auth/api/loginAdminQueries'
 import { useMutation } from '@apollo/client'
 import { useScopedTranslation } from '@byte-creators/utils'
+import { authStore } from '@/common/model/auth.store'
+import { useRouter } from 'next/router'
 
 type SignInFormValues = {
   email: string
@@ -13,7 +14,6 @@ type SignInFormValues = {
 
 export const useSignIn = () => {
   const [error, setError] = useState<null | string>(null)
-  const { login } = useAuth()
   const t = useScopedTranslation('Auth')
   const [loginAdmin] = useMutation(LOGIN_ADMIN)
   const [useCookie, setUseCookie] = useState(true)
@@ -24,17 +24,20 @@ export const useSignIn = () => {
     },
   })
 
+  const router = useRouter()
+
   const onSubmit = async (data: { email: string; password: string }) => {
     try {
       if (!useCookie) {
         return
       }
+      console.log('HERE')
       const { data: loginData } = await loginAdmin({
         variables: { email: data.email, password: data.password },
       })
 
       if (loginData?.loginAdmin?.logged) {
-        login(data.email, data.password)
+        authStore.login({ ...data, router })
       } else {
         setError('Invalid credentials')
       }
