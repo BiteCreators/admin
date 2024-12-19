@@ -15,7 +15,7 @@ export default function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL('/auth/sign-in', req.url))
   }
 
-  if (req.nextUrl.pathname === '/admin') {
+  if (req.nextUrl.pathname === '/') {
     return NextResponse.redirect(new URL('/users', req.url))
   }
 }
