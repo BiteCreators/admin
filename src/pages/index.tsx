@@ -1,4 +1,3 @@
-import { DefaultLayout } from '@/application/DefautlLayout'
 import Users from '@/pages/users'
 import localFont from 'next/font/local'
 
@@ -22,7 +21,5 @@ function Home() {
     </div>
   )
 }
-
-Home.getLayout = DefaultLayout
 
 export default Home

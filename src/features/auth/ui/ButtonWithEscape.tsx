@@ -19,6 +19,10 @@ export const ButtonWithEscape = () => {
     const mouseX = e.clientX
     const mouseY = e.clientY
 
+    if (document === undefined) {
+      return
+    }
+
     const button = document.getElementById('escape-button')
 
     if (button) {
