@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
+import { authStore } from '@/common/model/auth.store'
 import { LOGIN_ADMIN } from '@/features/auth/api/loginAdminQueries'
 import { useMutation } from '@apollo/client'
 import { useScopedTranslation } from '@byte-creators/utils'
-import { authStore } from '@/common/model/auth.store'
 import { useRouter } from 'next/router'
 
 type SignInFormValues = {

@@ -1,7 +1,8 @@
-import { authStore } from '@/common/model/auth.store'
 import { ReactNode } from 'react'
-import { observer } from 'mobx-react'
 import { useCookies } from 'react-cookie'
+
+import { authStore } from '@/common/model/auth.store'
+import { observer } from 'mobx-react'
 
 type AuthProviderProps = {
   children: ReactNode

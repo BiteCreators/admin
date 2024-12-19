@@ -2,11 +2,11 @@ import type { AppProps } from 'next/app'
 
 import React from 'react'
 
+import { DefaultLayout } from '@/application/layouts/DefaultLayout'
+import { Providers } from '@/application/providers'
 import { NextPage } from 'next'
 
 import '@/styles/globals.css'
-import { DefaultLayout } from '@/application/layouts/DefaultLayout'
-import { Providers } from '@/application/providers'
 
 //TODO: fix import
 

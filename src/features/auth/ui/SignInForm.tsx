@@ -2,6 +2,7 @@ import { useSignIn } from '@/features/auth/model/useSignIn'
 import { Alert, Button, Card, FormInput, Typography } from '@byte-creators/ui-kit'
 
 import cl from './styles/sign-in-form.module.scss'
+
 import { AcceptCookieAlert } from './AcceptCookieAlert'
 
 export const SignInForm = () => {

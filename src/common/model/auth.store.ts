@@ -13,6 +13,7 @@ class AuthStore {
     const authString = `Basic ${btoa(`${email}:${password}`)}`
 
     const maxAge = 7 * 24 * 60 * 60
+
     document.cookie = `adminAccessToken=${authString};max-age=${maxAge};secure;path=/;samesite=lax`
     this.isAuth = true
     //TODO: find out is there a way to include router inside mobx
