@@ -13,7 +13,7 @@ type Props = {
 export const UsersSearch = ({ fullWidth, handleSearchButtonClick }: Props) => {
   const [value, setValue] = useState('')
   const router = useRouter()
-
+  //TODO: добавить debounce (tapuru)
   const onChangeSearchInput = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.currentTarget.value)
   }

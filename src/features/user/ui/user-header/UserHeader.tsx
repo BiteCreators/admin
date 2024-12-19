@@ -17,7 +17,7 @@ export const UserHeader = ({}: Props) => {
 
   const exampleImg =
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZ6th-oTbkDMbDOPGU_kkRMM55lfvRYgM8JA&s'
-  //TODO: remove mock
+  //TODO: remove mock (someone)
 
   if (loading) {
     return <Loader />

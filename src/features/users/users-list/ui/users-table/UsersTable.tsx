@@ -3,7 +3,14 @@ import * as React from 'react'
 import { SortButton, SortBy } from '@/features/search-params'
 import { useUsers } from '@/features/users/users-list/model/useUsers'
 import { Options } from '@/features/users/users-list/ui/options/Options'
-import { Alert, LoaderBlock, Pagination, Table, TableHeader } from '@byte-creators/ui-kit'
+import {
+  Alert,
+  LoaderBlock,
+  Pagination,
+  Recaptcha,
+  Table,
+  TableHeader,
+} from '@byte-creators/ui-kit'
 import { Block } from '@byte-creators/ui-kit/icons'
 import Link from 'next/link'
 
@@ -32,7 +39,11 @@ export const UsersTable = () => {
         </div>
       ),
       2: <span>{user.userName}</span>,
-      3: <Link href={`users/${user.id}`}>{user.userName}</Link>,
+      3: (
+        <Link className={'link'} href={`users/${user.id}`}>
+          {user.userName}
+        </Link>
+      ),
       4: new Date(user.createdAt).toLocaleDateString(),
       5: (
         <Options
@@ -51,7 +62,6 @@ export const UsersTable = () => {
     },
     {
       name: 'Username',
-      //TODO: раскомментировать после фикса Table в uikit + фикс типов
 
       sort: <SortButton sortBy={SortBy.UserName} />,
     },
@@ -75,6 +85,7 @@ export const UsersTable = () => {
         headers={headers}
         tableData={exampleUsersData || []}
       />
+      <Recaptcha />
       <Pagination
         currentPage={usersListData?.getUsers.pagination.page || 1}
         onChangePagesPortion={handlerPageSize}

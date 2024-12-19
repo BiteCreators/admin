@@ -20,11 +20,10 @@ export const Following = () => {
     return {
       1: el.userId,
       2: el.userName,
-      3: <Link href={`profile/${el.userId}`}>{el.userName}</Link>,
+      3: <Link href={`/users/${el.userId}`}>{el.userName}</Link>,
       4: new Date(el.createdAt).toLocaleDateString(),
     }
   })
-  //TODO: fix types
   const tableHeaderData: TableHeader[] = [
     {
       name: 'User ID',

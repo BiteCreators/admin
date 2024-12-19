@@ -17,7 +17,7 @@ export const Followers = () => {
   const tableData = data?.getFollowers.items.map(follower => ({
     1: follower.userId,
     2: follower.userName,
-    3: <Link href={`profile/${follower.userId}`}>{follower.userName}</Link>,
+    3: <Link href={`/users/${follower.userId}`}>{follower.userName}</Link>,
     4: new Date(follower.createdAt).toLocaleDateString(),
   }))
 
@@ -36,7 +36,6 @@ export const Followers = () => {
     },
   ]
 
-  // TODO: fix types error
   return (
     <>
       {loading && <LoaderBlock />}

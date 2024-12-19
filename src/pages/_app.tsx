@@ -10,7 +10,7 @@ import { NextPage } from 'next'
 
 import '@/styles/globals.css'
 
-//TODO: fix import
+//TODO: fix импорт after fix plugin (tapuru)
 
 // import '@byte-creators/ui-kit/styles'
 

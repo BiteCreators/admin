@@ -16,6 +16,8 @@ export const UploadedPhotos = () => {
   if (data?.getPostsByUser.items?.length === 0) {
     return <p>No Uploaded Photos</p>
   }
+  //TODO: добавить пагинацию и добавить недефолтное число постов
+  // и пофиксить вёрстку таблицы отображения пользователей (Kathaerel)
 
   return (
     <div>

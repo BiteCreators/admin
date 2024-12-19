@@ -13,7 +13,7 @@
   "dependencies": {
     "@apollo/client": "^3.11.10",
     "@byte-creators/config": "^1.0.5",
-    "@byte-creators/ui-kit": "^1.3.0",
+    "@byte-creators/ui-kit": "file:C:/Development/Incubator-proj/incubator-inctagram/ui-kit/byte-creators-ui-kit-1.3.1.tgz",
     "@byte-creators/utils": "^1.2.0",
     "@graphql-codegen/cli": "^5.0.3",
     "@graphql-codegen/client-preset": "^4.5.1",
