@@ -1,14 +1,14 @@
 import { BlockUsersFilter } from '@/features/search-params/block-filter/ui/BlockUsersFilter'
-import { UsersSearch } from '@/features/search-params/users-search/ui/UsersSearch'
 import { UsersTable } from '@/features/users'
 
 import style from './users.module.scss'
+import { Search } from '@/features/search-params'
 
 const Users = () => {
   return (
     <div className={style.usersListContainer}>
       <div className={style.containerForFilterAndSearch}>
-        <UsersSearch />
+        <Search paramName={'user_name'} />
         <BlockUsersFilter />
       </div>
       <UsersTable />
