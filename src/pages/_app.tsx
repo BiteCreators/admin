@@ -2,13 +2,11 @@ import type { AppProps } from 'next/app'
 
 import React from 'react'
 
-import { DefaultLayout } from '@/application/DefautlLayout'
-import { AuthProvider } from '@/application/providers/AuthProvider'
-import { client } from '@/common/api/client'
-import { ApolloProvider } from '@apollo/client'
 import { NextPage } from 'next'
 
 import '@/styles/globals.css'
+import { DefaultLayout } from '@/application/layouts/DefaultLayout'
+import { Providers } from '@/application/providers'
 
 //TODO: fix import
 
@@ -25,9 +23,5 @@ type AppPropsWithLayout = {
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? DefaultLayout
 
-  return (
-    <ApolloProvider client={client}>
-      <AuthProvider>{getLayout(<Component {...pageProps} />)}</AuthProvider>
-    </ApolloProvider>
-  )
+  return <Providers>{getLayout(<Component {...pageProps} />)}</Providers>
 }

@@ -8,7 +8,7 @@ type AuthProviderProps = {
 }
 
 export const AuthProvider = observer(({ children }: AuthProviderProps) => {
-  const [cookies, setCookie, removeCookie] = useCookies(['adminAccessToken'])
+  const [cookies] = useCookies(['adminAccessToken'])
 
   if (!cookies.adminAccessToken) {
     authStore.isAuth = false
