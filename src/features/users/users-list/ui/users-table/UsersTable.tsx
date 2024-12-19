@@ -85,7 +85,6 @@ export const UsersTable = () => {
         headers={headers}
         tableData={exampleUsersData || []}
       />
-      <Recaptcha />
       <Pagination
         currentPage={usersListData?.getUsers.pagination.page || 1}
         onChangePagesPortion={handlerPageSize}
