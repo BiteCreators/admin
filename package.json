@@ -14,7 +14,7 @@
     "@apollo/client": "^3.11.10",
     "@byte-creators/config": "^1.0.5",
     "@byte-creators/ui-kit": "^1.3.2",
-    "@byte-creators/utils": "^1.2.0",
+    "@byte-creators/utils": "^1.4.3",
     "@graphql-codegen/cli": "^5.0.3",
     "@graphql-codegen/client-preset": "^4.5.1",
     "@graphql-typed-document-node/core": "^3.2.0",

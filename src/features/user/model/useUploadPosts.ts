@@ -1,8 +1,8 @@
 import { useRef, useState } from 'react'
 
 import { GET_POSTS_BY_USER } from '@/features/user/api/postsQuery'
-import { useIntersectionObserver } from '@/features/user/model/useIntersectionObserver'
 import { useQuery } from '@apollo/client'
+import { useIntersectionObserver } from '@byte-creators/utils'
 import { useRouter } from 'next/router'
 
 type Post = {
@@ -68,7 +68,6 @@ export const useUploadedPosts = () => {
 
       handleNewData(newPosts, totalCount)
     }
-
     setIsFetchingMore(false)
   }
 
