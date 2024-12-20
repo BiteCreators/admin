@@ -5,7 +5,7 @@ import { TabsBase } from '@byte-creators/ui-kit'
 import { Followers } from '../followers/Followers'
 import { Following } from '../following/Following'
 import { Payments } from '../payments/Payments'
-import { UploadedPhotos } from '../uploaded-photos/UploadedPhotos'
+import { UploadedPosts } from '../uploaded-photos/UploadedPosts'
 
 type TabValues = 'followers' | 'following' | 'payments' | 'uploaded-photos'
 
@@ -18,7 +18,7 @@ export const UserTabs = () => {
       onClick={value => setSelectedTab(value)}
       tabsData={[
         {
-          content: <UploadedPhotos />,
+          content: <UploadedPosts />,
           label: 'Uploaded photos',
           value: 'uploaded-photos',
         },

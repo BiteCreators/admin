@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 
 import { GET_POSTS_BY_USER } from '@/features/user/api/postsQuery'
+import { useIntersectionObserver } from '@/features/user/model/useIntersectionObserver'
 import { useQuery } from '@apollo/client'
 import { useRouter } from 'next/router'
 
@@ -11,12 +12,14 @@ type Post = {
   width: number
 }
 
-export const useUploadedPhotos = () => {
+export const useUploadedPosts = () => {
   const { query } = useRouter()
   const [posts, setPosts] = useState<Post[]>([])
   const [endCursorId, setEndCursorId] = useState<null | number>(null)
   const [hasMore, setHasMore] = useState(true)
   const [isFetchingMore, setIsFetchingMore] = useState(false)
+
+  const triggerRef = useRef<HTMLDivElement | null>(null)
 
   const mergePosts = (existingPosts: Post[], newPosts: Post[]): Post[] => {
     return [...existingPosts, ...newPosts]
@@ -25,7 +28,6 @@ export const useUploadedPhotos = () => {
   const handleNewData = (newPosts: Post[], totalCount: number) => {
     setPosts(prevPosts => mergePosts(prevPosts, newPosts))
 
-    // Update the end cursor to the ID of the last post in the new batch
     if (newPosts.length > 0) {
       const lastPostId = newPosts[newPosts.length - 1].id
 
@@ -36,6 +38,7 @@ export const useUploadedPhotos = () => {
       setHasMore(false)
     }
   }
+
   const { data, error, fetchMore, loading } = useQuery(GET_POSTS_BY_USER, {
     onCompleted: data => {
       const newPosts = data.getPostsByUser.items
@@ -69,16 +72,21 @@ export const useUploadedPhotos = () => {
     setIsFetchingMore(false)
   }
 
+  useIntersectionObserver(triggerRef, () => {
+    if (hasMore && !isFetchingMore) {
+      loadMore()
+    }
+  })
+
   return {
     error,
-    hasMore,
     isFetchingMore,
-    loadMore,
     loading,
     posts,
     query,
     setEndCursorId,
     setHasMore,
     setPosts,
+    triggerRef,
   }
 }

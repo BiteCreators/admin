@@ -1,23 +1,22 @@
 import React, { useEffect } from 'react'
 
-import { useUploadedPhotos } from '@/features/user/model/useUploadPhotos'
-import { Alert, Button, Loader, Typography } from '@byte-creators/ui-kit'
+import { useUploadedPosts } from '@/features/user/model/useUploadPosts'
+import { Alert, Loader, Typography } from '@byte-creators/ui-kit'
 
 import style from './uploadedPhotos.module.scss'
 
-export const UploadedPhotos = () => {
+export const UploadedPosts = () => {
   const {
     error,
-    hasMore,
     isFetchingMore,
-    loadMore,
     loading,
     posts,
     query,
     setEndCursorId,
     setHasMore,
     setPosts,
-  } = useUploadedPhotos()
+    triggerRef,
+  } = useUploadedPosts()
 
   useEffect(() => {
     setPosts([])
@@ -45,13 +44,7 @@ export const UploadedPhotos = () => {
         ))}
       </ul>
       {isFetchingMore && <Loader />}
-      {!isFetchingMore && hasMore && (
-        <div className={style.buttonContainer}>
-          <Button onClick={loadMore} variant={'outline'}>
-            Load More
-          </Button>
-        </div>
-      )}
+      <div className={style.trigger} ref={triggerRef} />
     </div>
   )
 }
