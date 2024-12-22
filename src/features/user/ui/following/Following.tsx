@@ -41,21 +41,24 @@ export const Following = () => {
     },
   ]
 
+  if (loading) {
+    return <LoaderBlock />
+  }
+
   return (
     <>
-      {loading && <LoaderBlock />}
       <Table headers={tableHeaderData} tableData={tableData || []} />
       {data
         ? data?.getFollowing.totalCount > 10 && (
-            <Pagination
-              className={s.pagination}
-              currentPage={pageNumber}
-              onChangePagesPortion={handlerPageSize}
-              onClickPaginationButton={handlerPageNumber}
-              pagesCount={data?.getFollowing.pagesCount}
-              pagesPortion={String(pageSize)}
-            />
-          )
+          <Pagination
+            className={s.pagination}
+            currentPage={pageNumber}
+            onChangePagesPortion={handlerPageSize}
+            onClickPaginationButton={handlerPageNumber}
+            pagesCount={data?.getFollowing.pagesCount}
+            pagesPortion={String(pageSize)}
+          />
+        )
         : null}
       {error?.message && <Alert message={error?.message} purpose={'alert'} type={'error'}></Alert>}
     </>
