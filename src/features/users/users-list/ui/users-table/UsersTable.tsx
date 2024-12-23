@@ -1,6 +1,5 @@
 import * as React from 'react'
 
-import { SortButton, SortBy } from '@/features/search-params'
 import { useUsers } from '@/features/users/users-list/model/useUsers'
 import { Options } from '@/features/users/users-list/ui/options/Options'
 import {
@@ -15,6 +14,7 @@ import { Block } from '@byte-creators/ui-kit/icons'
 import Link from 'next/link'
 
 import s from './styles.module.scss'
+import { TableSortButton, USERS_SORT_BY } from '@/entities/sort'
 
 export const UsersTable = () => {
   const {
@@ -24,6 +24,7 @@ export const UsersTable = () => {
     usersListData,
     usersListError,
     usersListLoading,
+    sortStore
   } = useUsers()
 
   if (usersListLoading) {
@@ -62,15 +63,15 @@ export const UsersTable = () => {
     },
     {
       name: 'Username',
-
-      sort: <SortButton sortBy={SortBy.UserName} />,
+      //TODO: fix those typings
+      sort: <TableSortButton<typeof USERS_SORT_BY> sortStore={sortStore} sortBy={USERS_SORT_BY.UserName} />,
     },
     {
       name: 'Profile link',
     },
     {
       name: 'Date added',
-      sort: <SortButton sortBy={SortBy.DateAdded} />,
+      sort: <TableSortButton<typeof USERS_SORT_BY> sortStore={sortStore} sortBy={USERS_SORT_BY.DateAdded} />,
     },
     {
       name: '',
