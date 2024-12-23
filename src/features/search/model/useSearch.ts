@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useState } from 'react'
 
-import { useDebounce } from '@byte-creators/utils'
+import { removeParam, useDebounce } from '@byte-creators/utils'
 import { useRouter } from 'next/router'
 
 export const useSearch = ({
@@ -18,18 +18,23 @@ export const useSearch = ({
   const debouncedValue = useDebounce(value, debounceDelay || 700)
   const router = useRouter()
 
-  const redirectWithParam = (value: null | string) => {
+  const redirectWithParam = (value?: string) => {
+    if (value?.length === 0) {
+      const newQuery = removeParam(router.query, [paramName])
+      router.replace({ pathname: router.pathname, query: newQuery.toString() }, undefined, { shallow: true })
+      return
+    }
     router.push({
       pathname: router.pathname,
       query: {
         ...router.query,
-        [paramName]: value,
+        [paramName]: value
       },
     })
   }
 
   useEffect(() => {
-    if (withAutoSearch) {
+    if (withAutoSearch || value) {
       redirectWithParam(debouncedValue)
     }
   }, [debouncedValue])

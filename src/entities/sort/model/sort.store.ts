@@ -1,4 +1,5 @@
 import { SortDirection } from '@/common/__generated-types__/graphql'
+import { removeParam } from '@byte-creators/utils'
 import { makeAutoObservable } from 'mobx'
 import Router from 'next/router'
 
@@ -33,13 +34,8 @@ export class SortStore<T extends { [key: string]: string }> {
     this.sortBy = undefined
     this.direction = undefined
     const { pathname, query } = Router
-    //TODO: remove ts ignore, move this into removeParam function in utils repo
-    //@ts-ignore
-    const params = new URLSearchParams(query)
-
-    params.delete('direction')
-    params.delete('sortBy')
-    Router.replace({ pathname, query: params.toString() }, undefined, { shallow: true })
+    const newQuery = removeParam(query, ["direction", "sortBy"])
+    Router.replace({ pathname, query: newQuery.toString() }, undefined, { shallow: true })
   }
 
   public setDirection({ direction }: { direction: SortDirection }) {
