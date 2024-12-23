@@ -1,58 +1,51 @@
 import { SortDirection } from '@/common/__generated-types__/graphql'
-import { SortStore } from '@/entities/sort'
+import { SortStore, USERS_SORT_BY } from '@/entities/sort'
 import { observer } from 'mobx-react'
-import { useRouter } from 'next/router'
 
 import style from './TableSortButton.module.scss'
 
 export const TableSortButton = observer(
-  <T extends { [key: string]: string }>({
+  <T extends typeof USERS_SORT_BY>({
     sortBy,
     sortStore,
   }: {
-    sortBy: T[string]
+    sortBy: T[keyof T]
     sortStore: SortStore<T>
   }) => {
-    const router = useRouter()
+    const isActive = sortStore.sortBy === sortBy
+    const isAscending = sortStore.direction === SortDirection.Asc
 
-    console.log(sortBy)
-    const handleSetAsc = () => {
-      sortStore.setSort({ direction: SortDirection.Asc, sortBy })
-    }
+    let buttons
 
-    const handleSetDesc = () => {
-      sortStore.setSort({ direction: SortDirection.Desc, sortBy })
-    }
-
-    const handleRemove = () => {
-      sortStore.removeSort()
-    }
-
-    let sortArrow
-
-    if (!sortStore.direction || (router.query.sortBy && router.query.sortBy !== sortBy)) {
-      sortArrow = (
+    if (!isActive) {
+      buttons = (
         <>
-          <button className={`${style.arrow} ${style.arrowUp}`} onClick={handleSetAsc}></button>
-          <button className={`${style.arrow} ${style.arrowDown}`} onClick={handleSetDesc}></button>
+          <button
+            className={`${style.arrow} ${style.arrowUp}`}
+            onClick={() => sortStore.setSort({ direction: SortDirection.Asc, sortBy })}
+          />
+          <button
+            className={`${style.arrow} ${style.arrowDown}`}
+            onClick={() => sortStore.setSort({ direction: SortDirection.Desc, sortBy })}
+          />
         </>
       )
-    } else if (sortStore.direction === SortDirection.Desc) {
-      sortArrow = (
-        <button
-          className={`${style.arrow} ${style.arrowDown} ${style.isActiveDownArrow}`}
-          onClick={handleRemove}
-        ></button>
-      )
-    } else if (sortStore.direction === SortDirection.Asc) {
-      sortArrow = (
+    } else if (isAscending) {
+      buttons = (
         <button
           className={`${style.arrow} ${style.arrowUp} ${style.isActiveUpArrow}`}
-          onClick={handleRemove}
-        ></button>
+          onClick={() => sortStore.removeSort()}
+        />
+      )
+    } else {
+      buttons = (
+        <button
+          className={`${style.arrow} ${style.arrowDown} ${style.isActiveDownArrow}`}
+          onClick={() => sortStore.removeSort()}
+        />
       )
     }
 
-    return <div className={'flex flex-col h-6 justify-center '}>{sortArrow}</div>
+    return <div className={'flex flex-col h-6 justify-center'}>{buttons}</div>
   }
 )

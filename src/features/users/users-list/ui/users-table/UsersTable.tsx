@@ -56,7 +56,6 @@ export const UsersTable = () => {
     },
     {
       name: 'Username',
-      //TODO: fix those typings
       sort: (
         <TableSortButton<typeof USERS_SORT_BY>
           sortBy={USERS_SORT_BY.UserName}
