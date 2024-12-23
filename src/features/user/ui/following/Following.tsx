@@ -1,15 +1,15 @@
 import React from 'react'
 
-import { SortButton, SortBy } from '@/features/search-params'
 import { Alert, LoaderBlock, Pagination, Table, TableHeader } from '@byte-creators/ui-kit'
 import Link from 'next/link'
 
 import s from './following.module.scss'
 
 import { useFollowing } from '../../model/useFollowing'
+import { TableSortButton, USERS_SORT_BY } from '@/entities/sort'
 
 export const Following = () => {
-  const { data, error, handlerPageNumber, handlerPageSize, loading, pageNumber, pageSize } =
+  const { data, error, handlerPageNumber, handlerPageSize, loading, pageNumber, pageSize, sortStore } =
     useFollowing()
 
   if (data?.getFollowing.totalCount === 0) {
@@ -30,23 +30,20 @@ export const Following = () => {
     },
     {
       name: 'Username',
-      sort: <SortButton sortBy={SortBy.UserName} />,
+      sort: <TableSortButton<typeof USERS_SORT_BY> sortStore={sortStore} sortBy={USERS_SORT_BY.UserName} />
     },
     {
       name: 'Profile link',
     },
     {
       name: 'Subscription Date',
-      sort: <SortButton sortBy={SortBy.DateAdded} />,
+      sort: <TableSortButton<typeof USERS_SORT_BY> sortStore={sortStore} sortBy={USERS_SORT_BY.DateAdded} />
     },
   ]
 
-  if (loading) {
-    return <LoaderBlock />
-  }
-
   return (
     <>
+      {loading && <LoaderBlock />}
       <Table headers={tableHeaderData} tableData={tableData || []} />
       {data
         ? data?.getFollowing.totalCount > 10 && (

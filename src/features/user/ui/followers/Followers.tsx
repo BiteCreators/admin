@@ -1,14 +1,14 @@
 import React from 'react'
 
-import { SortButton, SortBy } from '@/features/search-params'
 import { useFollowers } from '@/features/user/model/useFollowers'
 import { Alert, LoaderBlock, Pagination, Table } from '@byte-creators/ui-kit'
 import Link from 'next/link'
 
 import s from './followers.module.scss'
+import { TableSortButton, USERS_SORT_BY } from '@/entities/sort'
 
 export const Followers = () => {
-  const { data, error, handlerPageNumber, handlerPageSize, loading, pageNumber, pageSize, t } =
+  const { data, error, handlerPageNumber, handlerPageSize, loading, pageNumber, pageSize, t, sortStore } =
     useFollowers()
 
   if (data?.getFollowers.totalCount === 0) {
@@ -27,12 +27,12 @@ export const Followers = () => {
     },
     {
       name: t.userName,
-      sort: <SortButton sortBy={SortBy.UserName} />,
+      sort: <TableSortButton<typeof USERS_SORT_BY> sortStore={sortStore} sortBy={USERS_SORT_BY.UserName} />
     },
     { name: t.profileLink },
     {
       name: t.subscriptionDate,
-      sort: <SortButton sortBy={SortBy.DateAdded} />,
+      sort: <TableSortButton<typeof USERS_SORT_BY> sortStore={sortStore} sortBy={USERS_SORT_BY.DateAdded} />
     },
   ]
 
