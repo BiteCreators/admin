@@ -1,8 +1,8 @@
+import { Search } from '@/features/search-params'
 import { BlockUsersFilter } from '@/features/search-params/block-filter/ui/BlockUsersFilter'
 import { UsersTable } from '@/features/users'
 
 import style from './users.module.scss'
-import { Search } from '@/features/search-params'
 
 const Users = () => {
   return (

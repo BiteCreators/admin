@@ -7,7 +7,8 @@ import { Providers } from '@/application/providers'
 import { NextPage } from 'next'
 
 import '@/styles/globals.css'
-
+//TODO: remove eslint-disable
+// eslint-disable-next-line import/no-unresolved
 import '@byte-creators/ui-kit/styles'
 
 export type NextPageWithLayout<P = {}, IP = P> = {

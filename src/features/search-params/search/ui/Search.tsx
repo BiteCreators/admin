@@ -1,28 +1,29 @@
 import { Input } from '@byte-creators/ui-kit'
 
 import style from './Search.module.scss'
+
 import { useSearch } from '../model/useSearch'
 
 type Props = {
-  paramName?: string
+  debounceDelay?: number
   fullWidth?: boolean
   handleSearchButtonClick?: (value: string) => void
+  paramName?: string
   withAutoSearch?: boolean
-  debounceDelay?: number
 }
 
 export const Search = ({
+  debounceDelay,
   fullWidth,
   handleSearchButtonClick,
-  debounceDelay,
   paramName = 'search',
   withAutoSearch = true,
 }: Props) => {
-  const { handleClickSearchButton, handleChangeSearchInput, value } = useSearch({
+  const { handleChangeSearchInput, handleClickSearchButton, value } = useSearch({
+    debounceDelay,
+    handleSearchButtonClick,
     paramName,
     withAutoSearch,
-    handleSearchButtonClick,
-    debounceDelay,
   })
 
   return (

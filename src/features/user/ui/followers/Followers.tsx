@@ -1,15 +1,24 @@
 import React from 'react'
 
+import { TableSortButton, USERS_SORT_BY } from '@/entities/sort'
 import { useFollowers } from '@/features/user/model/useFollowers'
 import { Alert, LoaderBlock, Pagination, Table } from '@byte-creators/ui-kit'
 import Link from 'next/link'
 
 import s from './followers.module.scss'
-import { TableSortButton, USERS_SORT_BY } from '@/entities/sort'
 
 export const Followers = () => {
-  const { data, error, handlerPageNumber, handlerPageSize, loading, pageNumber, pageSize, t, sortStore } =
-    useFollowers()
+  const {
+    data,
+    error,
+    handlerPageNumber,
+    handlerPageSize,
+    loading,
+    pageNumber,
+    pageSize,
+    sortStore,
+    t,
+  } = useFollowers()
 
   if (data?.getFollowers.totalCount === 0) {
     return <p>No Followers</p>
@@ -27,12 +36,22 @@ export const Followers = () => {
     },
     {
       name: t.userName,
-      sort: <TableSortButton<typeof USERS_SORT_BY> sortStore={sortStore} sortBy={USERS_SORT_BY.UserName} />
+      sort: (
+        <TableSortButton<typeof USERS_SORT_BY>
+          sortBy={USERS_SORT_BY.UserName}
+          sortStore={sortStore}
+        />
+      ),
     },
     { name: t.profileLink },
     {
       name: t.subscriptionDate,
-      sort: <TableSortButton<typeof USERS_SORT_BY> sortStore={sortStore} sortBy={USERS_SORT_BY.DateAdded} />
+      sort: (
+        <TableSortButton<typeof USERS_SORT_BY>
+          sortBy={USERS_SORT_BY.DateAdded}
+          sortStore={sortStore}
+        />
+      ),
     },
   ]
 
@@ -45,15 +64,15 @@ export const Followers = () => {
       <Table headers={tableHeaderData} tableData={tableData || []} />
       {data
         ? data?.getFollowers.totalCount > 10 && (
-          <Pagination
-            className={s.pagination}
-            currentPage={pageNumber}
-            onChangePagesPortion={handlerPageSize}
-            onClickPaginationButton={handlerPageNumber}
-            pagesCount={data?.getFollowers.pagesCount}
-            pagesPortion={String(pageSize)}
-          />
-        )
+            <Pagination
+              className={s.pagination}
+              currentPage={pageNumber}
+              onChangePagesPortion={handlerPageSize}
+              onClickPaginationButton={handlerPageNumber}
+              pagesCount={data?.getFollowers.pagesCount}
+              pagesPortion={String(pageSize)}
+            />
+          )
         : null}
       {error?.message && <Alert message={error?.message} purpose={'alert'} type={'error'}></Alert>}
     </>

@@ -1,30 +1,23 @@
 import * as React from 'react'
 
+import { TableSortButton, USERS_SORT_BY } from '@/entities/sort'
 import { useUsers } from '@/features/users/users-list/model/useUsers'
 import { Options } from '@/features/users/users-list/ui/options/Options'
-import {
-  Alert,
-  LoaderBlock,
-  Pagination,
-  Recaptcha,
-  Table,
-  TableHeader,
-} from '@byte-creators/ui-kit'
+import { Alert, LoaderBlock, Pagination, Table, TableHeader } from '@byte-creators/ui-kit'
 import { Block } from '@byte-creators/ui-kit/icons'
 import Link from 'next/link'
 
 import s from './styles.module.scss'
-import { TableSortButton, USERS_SORT_BY } from '@/entities/sort'
 
 export const UsersTable = () => {
   const {
     handlerPageNumber,
     handlerPageSize,
     refetchUsers,
+    sortStore,
     usersListData,
     usersListError,
     usersListLoading,
-    sortStore
   } = useUsers()
 
   if (usersListLoading) {
@@ -64,14 +57,24 @@ export const UsersTable = () => {
     {
       name: 'Username',
       //TODO: fix those typings
-      sort: <TableSortButton<typeof USERS_SORT_BY> sortStore={sortStore} sortBy={USERS_SORT_BY.UserName} />,
+      sort: (
+        <TableSortButton<typeof USERS_SORT_BY>
+          sortBy={USERS_SORT_BY.UserName}
+          sortStore={sortStore}
+        />
+      ),
     },
     {
       name: 'Profile link',
     },
     {
       name: 'Date added',
-      sort: <TableSortButton<typeof USERS_SORT_BY> sortStore={sortStore} sortBy={USERS_SORT_BY.DateAdded} />,
+      sort: (
+        <TableSortButton<typeof USERS_SORT_BY>
+          sortBy={USERS_SORT_BY.DateAdded}
+          sortStore={sortStore}
+        />
+      ),
     },
     {
       name: '',
