@@ -1,16 +1,12 @@
 import { SortDirection } from '@/common/__generated-types__/graphql'
+import { USERS_SORT_BY } from '@/entities/sort'
+import { removeParam } from '@byte-creators/utils'
 import { makeAutoObservable } from 'mobx'
 import Router from 'next/router'
 
-type SortInput<T extends { [key: string]: string }> = {
-  direction: SortDirection
-  sortBy: T[string]
-}
-
-//TODO: fix these typings
-export class SortStore<T extends { [key: string]: string }> {
+export class SortStore<T extends typeof USERS_SORT_BY> {
   public direction?: SortDirection
-  public sortBy?: T[string]
+  public sortBy?: T[keyof T]
   readonly sortOptions: T
 
   constructor(sortOptions: T) {
@@ -18,38 +14,40 @@ export class SortStore<T extends { [key: string]: string }> {
     this.sortOptions = sortOptions
   }
 
-  private redirect({ direction, sortBy }: Partial<SortInput<T>>) {
+  private redirect({
+    direction,
+    sortBy,
+  }: Partial<{ direction: SortDirection; sortBy: T[keyof T] }>) {
+    const { pathname, query } = Router
+
     Router.push({
-      pathname: Router.pathname,
+      pathname,
       query: {
-        ...Router.query,
-        direction,
-        sortBy,
+        ...query,
+        direction: direction ? String(direction) : undefined,
+        sortBy: sortBy ? String(sortBy) : undefined,
       },
     })
   }
 
   public removeSort() {
-    this.sortBy = undefined
     this.direction = undefined
+    this.sortBy = undefined
     const { pathname, query } = Router
-    //TODO: remove ts ignore, move this into removeParam function in utils repo
-    //@ts-ignore
-    const params = new URLSearchParams(query)
 
-    params.delete('direction')
-    params.delete('sortBy')
-    Router.replace({ pathname, query: params.toString() }, undefined, { shallow: true })
+    const newQuery = removeParam(query, ['direction', 'sortBy'])
+
+    Router.replace({ pathname, query: newQuery }, undefined, { shallow: true })
   }
 
-  public setDirection({ direction }: { direction: SortDirection }) {
+  public setDirection(direction: SortDirection) {
     this.direction = direction
     this.redirect({ direction, sortBy: this.sortBy })
   }
 
-  public setSort({ direction, sortBy }: SortInput<T>) {
-    this.sortBy = sortBy
+  public setSort({ direction, sortBy }: { direction: SortDirection; sortBy: T[keyof T] }) {
     this.direction = direction
+    this.sortBy = sortBy
     this.redirect({ direction, sortBy })
   }
 
