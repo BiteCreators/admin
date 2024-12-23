@@ -37,7 +37,7 @@ export const useSignIn = () => {
       })
 
       if (loginData?.loginAdmin?.logged) {
-        authStore.login({ ...data, router })
+        authStore.login({ ...data })
       } else {
         setError('Invalid credentials')
       }
