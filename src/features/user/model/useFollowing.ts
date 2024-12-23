@@ -2,26 +2,17 @@ import { useState } from 'react'
 
 import { SortDirection } from '@/common/__generated-types__/graphql'
 import { QueryParams } from '@/common/types/queryParams.type'
+import { SortStore, USERS_SORT_BY } from '@/entities/sort'
 import { useQuery } from '@apollo/client'
 import { useRouter } from 'next/router'
 
 import { GET_FOLLOWING } from '../api/followingQuery'
 
+const sortStore = new SortStore(USERS_SORT_BY)
+
 export const useFollowing = () => {
   const { query } = useRouter()
-  const { sort }: QueryParams = query
-  const [sortBy, sortDirection] = sort ? sort.split('_') : []
-
-  //   const {
-  //     sortBy,
-  //     sortDate,
-  //     sortDirection,
-  //     sortDirectionBtnDate,
-  //     sortDirectionBtnUserName,
-  //     sortName,
-  //   } = useSortUsers()
-  // const router = useRouter()
-  //
+  const { direction, sortBy }: QueryParams = query
 
   const [pageNumber, setPageNumber] = useState<number>(1)
   const [pageSize, setPageSize] = useState<number>(10)
@@ -32,7 +23,7 @@ export const useFollowing = () => {
       pageNumber,
       pageSize,
       sortBy,
-      sortDirection: sortDirection as SortDirection,
+      sortDirection: direction as SortDirection,
       userId: query.id ? +query.id : 1,
     },
   })
@@ -48,5 +39,6 @@ export const useFollowing = () => {
     loading,
     pageNumber,
     pageSize,
+    sortStore,
   }
 }

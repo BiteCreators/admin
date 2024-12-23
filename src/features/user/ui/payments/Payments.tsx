@@ -1,6 +1,6 @@
 import { SubscriptionByPaymentModel } from '@/common/__generated-types__/graphql'
 import { usePayments } from '@/features/user/model/usePayments'
-import { Alert, Loader, Pagination, Table, TableData, Typography } from '@byte-creators/ui-kit'
+import { Alert, LoaderBlock, Pagination, Table, TableData, Typography } from '@byte-creators/ui-kit'
 import { useRouter } from 'next/router'
 
 import style from './payments.module.scss'
@@ -51,10 +51,13 @@ export const Payments = () => {
     },
   ]
 
+  if (loading) {
+    return <LoaderBlock />
+  }
+
   return (
     <div className={'relative mb-12 sm:flex sm:flex-col'}>
-      {loading && <Loader />}
-      {!loading && data?.getPaymentsByUser.items.length === 0 ? (
+      {data?.getPaymentsByUser.items.length === 0 ? (
         <Typography> User does not have any subscriptions yet</Typography>
       ) : (
         <div>

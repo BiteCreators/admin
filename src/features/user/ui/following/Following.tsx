@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { SortButton, SortBy } from '@/features/search-params'
+import { TableSortButton, USERS_SORT_BY } from '@/entities/sort'
 import { Alert, LoaderBlock, Pagination, Table, TableHeader } from '@byte-creators/ui-kit'
 import Link from 'next/link'
 
@@ -9,8 +9,16 @@ import s from './following.module.scss'
 import { useFollowing } from '../../model/useFollowing'
 
 export const Following = () => {
-  const { data, error, handlerPageNumber, handlerPageSize, loading, pageNumber, pageSize } =
-    useFollowing()
+  const {
+    data,
+    error,
+    handlerPageNumber,
+    handlerPageSize,
+    loading,
+    pageNumber,
+    pageSize,
+    sortStore,
+  } = useFollowing()
 
   if (data?.getFollowing.totalCount === 0) {
     return <p>No Following</p>
@@ -30,14 +38,24 @@ export const Following = () => {
     },
     {
       name: 'Username',
-      sort: <SortButton sortBy={SortBy.UserName} />,
+      sort: (
+        <TableSortButton<typeof USERS_SORT_BY>
+          sortBy={USERS_SORT_BY.UserName}
+          sortStore={sortStore}
+        />
+      ),
     },
     {
       name: 'Profile link',
     },
     {
       name: 'Subscription Date',
-      sort: <SortButton sortBy={SortBy.DateAdded} />,
+      sort: (
+        <TableSortButton<typeof USERS_SORT_BY>
+          sortBy={USERS_SORT_BY.DateAdded}
+          sortStore={sortStore}
+        />
+      ),
     },
   ]
 

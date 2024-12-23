@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { SortButton, SortBy } from '@/features/search-params'
+import { TableSortButton, USERS_SORT_BY } from '@/entities/sort'
 import { useFollowers } from '@/features/user/model/useFollowers'
 import { Alert, LoaderBlock, Pagination, Table } from '@byte-creators/ui-kit'
 import Link from 'next/link'
@@ -8,8 +8,17 @@ import Link from 'next/link'
 import s from './followers.module.scss'
 
 export const Followers = () => {
-  const { data, error, handlerPageNumber, handlerPageSize, loading, pageNumber, pageSize, t } =
-    useFollowers()
+  const {
+    data,
+    error,
+    handlerPageNumber,
+    handlerPageSize,
+    loading,
+    pageNumber,
+    pageSize,
+    sortStore,
+    t,
+  } = useFollowers()
 
   if (data?.getFollowers.totalCount === 0) {
     return <p>No Followers</p>
@@ -27,18 +36,31 @@ export const Followers = () => {
     },
     {
       name: t.userName,
-      sort: <SortButton sortBy={SortBy.UserName} />,
+      sort: (
+        <TableSortButton<typeof USERS_SORT_BY>
+          sortBy={USERS_SORT_BY.UserName}
+          sortStore={sortStore}
+        />
+      ),
     },
     { name: t.profileLink },
     {
       name: t.subscriptionDate,
-      sort: <SortButton sortBy={SortBy.DateAdded} />,
+      sort: (
+        <TableSortButton<typeof USERS_SORT_BY>
+          sortBy={USERS_SORT_BY.DateAdded}
+          sortStore={sortStore}
+        />
+      ),
     },
   ]
 
+  if (loading) {
+    return <LoaderBlock />
+  }
+
   return (
     <>
-      {loading && <LoaderBlock />}
       <Table headers={tableHeaderData} tableData={tableData || []} />
       {data
         ? data?.getFollowers.totalCount > 10 && (

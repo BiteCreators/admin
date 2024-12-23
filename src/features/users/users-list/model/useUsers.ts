@@ -2,30 +2,26 @@ import { useState } from 'react'
 
 import { SortDirection, UserBlockStatus } from '@/common/__generated-types__/graphql'
 import { QueryParams } from '@/common/types/queryParams.type'
+import { SortStore, USERS_SORT_BY } from '@/entities/sort'
 import { useQuery } from '@apollo/client'
 import { useRouter } from 'next/router'
 
 import { GET_USERS } from '../api/usersQuery'
 
+const sortStore = new SortStore(USERS_SORT_BY)
+
 export const useUsers = () => {
-  //   const {
-  //     sortBy,
-  //     sortDate,
-  //     sortDirection,
-  //     sortDirectionBtnDate,
-  //     sortDirectionBtnUserName,
-  //     sortName,
-  //   } = useSortUsers()
   const router = useRouter()
+
   const {
     block_status_filter: blockStatusFilter,
-    sort,
+    direction,
+    sortBy,
     user_name: userNameSearch,
   }: QueryParams = router.query
 
   const [pageNumber, setPageNumber] = useState<number>(1)
   const [pageSize, setPageSize] = useState<number>(10)
-  const [sortBy, sortDirection] = sort ? sort.split('_') : []
 
   const {
     data: usersListData,
@@ -39,7 +35,7 @@ export const useUsers = () => {
       pageSize,
       searchTerm: userNameSearch,
       sortBy,
-      sortDirection: sortDirection as SortDirection,
+      sortDirection: direction as SortDirection,
       statusFilter: blockStatusFilter ?? UserBlockStatus.All,
     },
   })
@@ -58,6 +54,7 @@ export const useUsers = () => {
     handlerPageNumber,
     handlerPageSize,
     refetchUsers,
+    sortStore,
     usersListData,
     usersListError,
     usersListLoading,
