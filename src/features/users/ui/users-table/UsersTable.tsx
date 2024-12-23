@@ -1,13 +1,13 @@
 import * as React from 'react'
 
 import { TableSortButton, USERS_SORT_BY } from '@/entities/sort'
-import { useUsers } from '@/features/users/users-list/model/useUsers'
-import { Options } from '@/features/users/users-list/ui/options/Options'
 import { Alert, LoaderBlock, Pagination, Table, TableHeader } from '@byte-creators/ui-kit'
 import { Block } from '@byte-creators/ui-kit/icons'
 import Link from 'next/link'
 
 import s from './styles.module.scss'
+import { useUsers } from '../../model/useUsers'
+import { Options } from '../options/Options'
 
 export const UsersTable = () => {
   const {
