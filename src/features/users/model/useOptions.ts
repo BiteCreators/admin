@@ -5,6 +5,7 @@ import { useMutation } from '@apollo/client'
 import { BAN_USER } from '../api/banUserQuery'
 import { REMOVE_USER } from '../api/removeUserQuery'
 import { UNBAN_USER } from '../api/unbanUserQuery'
+import { useRouter } from 'next/router'
 
 export const useOptions = ({
   refetchUsers,
@@ -19,6 +20,7 @@ export const useOptions = ({
 
   const [isOpenBanModal, setIsOpenBanModal] = useState<boolean>(false)
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState<boolean>(false)
+  const router = useRouter()
 
   const [banUser] = useMutation(BAN_USER, {
     onCompleted: () => {
@@ -72,6 +74,10 @@ export const useOptions = ({
     }
   }
 
+  const handleMoreInformationClick = () => {
+    router.push(`/users/${userId}`)
+  }
+
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside)
 
@@ -85,6 +91,7 @@ export const useOptions = ({
     handleConfirmBan,
     handleConfirmDelete,
     handleConfirmUnBan,
+    handleMoreInformationClick,
     isOpen,
     isOpenBanModal,
     isOpenDeleteModal,

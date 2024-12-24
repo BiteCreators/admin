@@ -1,4 +1,4 @@
-import { Alert } from '@byte-creators/ui-kit'
+import { Alert, Dropdown } from '@byte-creators/ui-kit'
 import { Block, MoreHorizontalOutline, PersonRemoveOutline } from '@byte-creators/ui-kit/icons'
 
 import s from './style.module.scss'
@@ -19,53 +19,53 @@ export const Options = ({ isBan, refetchUsers, userId, userName }: Props) => {
     handleConfirmBan,
     handleConfirmDelete,
     handleConfirmUnBan,
-    isOpen,
+    handleMoreInformationClick,
     isOpenBanModal,
     isOpenDeleteModal,
     optionsRef,
-    setIsOpen,
     setIsOpenBanModal,
     setIsOpenDeleteModal,
-    toggleOptions,
   } = useOptions({ refetchUsers, userId })
+
+  const items = [
+    {
+      label: "Delete user",
+      icon: <PersonRemoveOutline />,
+      onClick: () => {
+        setIsOpenDeleteModal(true)
+      }
+    },
+    {
+      label: isBan ? "Unban in the system" : "Ban user",
+      icon: <Block />,
+      onClick: () => {
+        setIsOpenBanModal(true)
+      }
+    },
+    {
+      label: "More information",
+      icon: <MoreHorizontalOutline />,
+      onClick: handleMoreInformationClick
+
+    },
+  ]
 
   return (
     <div className={s.options} ref={optionsRef}>
-      <button className={`${s.toggle} ${isOpen ? s.active : ''}`} onClick={toggleOptions}>
-        <MoreHorizontalOutline />
-      </button>
-      <ul className={`${s.list} ${isOpen ? s.active : ''}`}>
-        <li>
-          <button
-            className={s.btn}
-            onClick={() => {
-              setIsOpen(false)
-              setIsOpenDeleteModal(true)
-            }}
-          >
-            <PersonRemoveOutline />
-            Delete User
-          </button>
-        </li>
-        <li>
-          <button
-            className={s.btn}
-            onClick={() => {
-              setIsOpen(false)
-              setIsOpenBanModal(true)
-            }}
-          >
-            <Block />
-            {isBan ? 'Unban' : 'Ban in the system'}
-          </button>
-        </li>
-        <li>
-          <button className={s.btn}>
+      <Dropdown
+        className={s.dropdown}
+        items={items}
+        iconButton={
+          <button className={s.toggle}>
             <MoreHorizontalOutline />
-            More Information
           </button>
-        </li>
-      </ul>
+        }
+        iconButtonOpen={
+          <button className={`${s.toggle} ${s.active}`}>
+            <MoreHorizontalOutline />
+          </button>
+        }
+      />
       <ActionConfirmations
         handleConfirmBan={handleConfirmBan}
         handleConfirmDelete={handleConfirmDelete}

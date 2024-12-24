@@ -4,12 +4,21 @@
   position: relative;
 }
 
-.toggle {
-  vertical-align: middle;
+.dropdownWrapper {
+  height: 100%;
+  display: flex;
+  aling-items: center;
+}
 
-  &.active {
-    color: $color-primary-500;
-  }
+.dropdown {
+  position: relative;
+  top: -20px;
+
+  &.toggle {
+    &.active {
+      color: $color-primary-500;
+    }
+  } 
 }
 
 .btn {
