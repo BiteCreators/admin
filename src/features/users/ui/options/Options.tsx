@@ -29,24 +29,23 @@ export const Options = ({ isBan, refetchUsers, userId, userName }: Props) => {
 
   const items = [
     {
-      label: "Delete user",
       icon: <PersonRemoveOutline />,
+      label: 'Delete user',
       onClick: () => {
         setIsOpenDeleteModal(true)
-      }
+      },
     },
     {
-      label: isBan ? "Unban in the system" : "Ban user",
       icon: <Block />,
+      label: isBan ? 'Unban in the system' : 'Ban user',
       onClick: () => {
         setIsOpenBanModal(true)
-      }
+      },
     },
     {
-      label: "More information",
       icon: <MoreHorizontalOutline />,
-      onClick: handleMoreInformationClick
-
+      label: 'More information',
+      onClick: handleMoreInformationClick,
     },
   ]
 
@@ -54,7 +53,6 @@ export const Options = ({ isBan, refetchUsers, userId, userName }: Props) => {
     <div className={s.options} ref={optionsRef}>
       <Dropdown
         className={s.dropdown}
-        items={items}
         iconButton={
           <button className={s.toggle}>
             <MoreHorizontalOutline />
@@ -65,6 +63,7 @@ export const Options = ({ isBan, refetchUsers, userId, userName }: Props) => {
             <MoreHorizontalOutline />
           </button>
         }
+        items={items}
       />
       <ActionConfirmations
         handleConfirmBan={handleConfirmBan}

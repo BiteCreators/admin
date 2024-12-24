@@ -9,7 +9,7 @@ class AuthStore {
     this.isAuth = false
   }
 
-  login({ email, password }: { email: string; password: string; }) {
+  login({ email, password }: { email: string; password: string }) {
     const authString = `Basic ${btoa(`${email}:${password}`)}`
 
     const maxAge = 7 * 24 * 60 * 60

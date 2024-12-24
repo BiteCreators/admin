@@ -21,14 +21,18 @@ export const useSearch = ({
   const redirectWithParam = (value?: string) => {
     if (value?.length === 0) {
       const newQuery = removeParam(router.query, [paramName])
-      router.replace({ pathname: router.pathname, query: newQuery.toString() }, undefined, { shallow: true })
+
+      router.replace({ pathname: router.pathname, query: newQuery.toString() }, undefined, {
+        shallow: true,
+      })
+
       return
     }
     router.push({
       pathname: router.pathname,
       query: {
         ...router.query,
-        [paramName]: value
+        [paramName]: value,
       },
     })
   }

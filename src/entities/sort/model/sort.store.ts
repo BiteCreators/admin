@@ -34,7 +34,8 @@ export class SortStore<T extends { [key: string]: string }> {
     this.sortBy = undefined
     this.direction = undefined
     const { pathname, query } = Router
-    const newQuery = removeParam(query, ["direction", "sortBy"])
+    const newQuery = removeParam(query, ['direction', 'sortBy'])
+
     Router.replace({ pathname, query: newQuery.toString() }, undefined, { shallow: true })
   }
 

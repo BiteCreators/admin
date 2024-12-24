@@ -56,7 +56,7 @@ export const ActionConfirmations = ({
         isOpen={isOpenDeleteModal}
         message={messageDeleteModal}
         onConfirm={handleConfirmDelete}
-        onReject={() => { }}
+        onReject={() => {}}
         setIsOpen={setIsOpenDeleteModal}
         title={'Delete user'}
       />
@@ -66,7 +66,7 @@ export const ActionConfirmations = ({
         isOpen={isOpenBanModal}
         message={messageBanModal}
         onConfirm={handleConfirmStatusBan}
-        onReject={() => { }}
+        onReject={() => {}}
         setIsOpen={setIsOpenBanModal}
         title={'Ban user'}
       >

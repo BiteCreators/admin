@@ -1,11 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { useMutation } from '@apollo/client'
+import { useRouter } from 'next/router'
 
 import { BAN_USER } from '../api/banUserQuery'
 import { REMOVE_USER } from '../api/removeUserQuery'
 import { UNBAN_USER } from '../api/unbanUserQuery'
-import { useRouter } from 'next/router'
 
 export const useOptions = ({
   refetchUsers,

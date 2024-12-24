@@ -6,6 +6,7 @@ import { Block } from '@byte-creators/ui-kit/icons'
 import Link from 'next/link'
 
 import s from './styles.module.scss'
+
 import { useUsers } from '../../model/useUsers'
 import { Options } from '../options/Options'
 
