@@ -2,7 +2,7 @@ import { useRef, useState } from 'react'
 
 import { GET_POSTS_BY_USER } from '@/features/user/api/postsQuery'
 import { useQuery } from '@apollo/client'
-import { useIntersectionObserver } from '@byte-creators/utils'
+import { useIntersectionObserver, useScopedTranslation } from '@byte-creators/utils'
 import { useRouter } from 'next/router'
 
 type Post = {
@@ -18,6 +18,7 @@ export const useUploadedPosts = () => {
   const [endCursorId, setEndCursorId] = useState<null | number>(null)
   const [hasMore, setHasMore] = useState(true)
   const [isFetchingMore, setIsFetchingMore] = useState(false)
+  const t = useScopedTranslation('AdminUserProfile')
 
   const triggerRef = useRef<HTMLDivElement | null>(null)
 
@@ -86,6 +87,7 @@ export const useUploadedPosts = () => {
     setEndCursorId,
     setHasMore,
     setPosts,
+    t,
     triggerRef,
   }
 }

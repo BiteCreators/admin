@@ -9,10 +9,13 @@ import {
   TrendingUp,
   TrendingUpOutline,
 } from '@byte-creators/ui-kit/icons'
+import { useScopedTranslation } from '@byte-creators/utils'
 
 import cl from '../ui/styles/sideNavbar.module.scss'
 
 export const SideNavbar = () => {
+  const t = useScopedTranslation('Navigation')
+
   return (
     <nav className={cl.nav}>
       <div className={cl.navItemContainer}>
@@ -20,25 +23,25 @@ export const SideNavbar = () => {
           href={'/users'}
           icon={<PersonOutline />}
           iconActive={<Person />}
-          label={'Users list'}
+          label={t.usersList}
         />
         <SideNavbarItem
           href={`/statistics`}
           icon={<TrendingUpOutline />}
           iconActive={<TrendingUp />}
-          label={'Statistics'}
+          label={t.statistics}
         />
         <SideNavbarItem
           href={'/payments'}
           icon={<CreditCardOutline />}
           iconActive={<CreditCard />}
-          label={'Payments list'}
+          label={t.paymentsList}
         />
         <SideNavbarItem
           href={'/posts'}
           icon={<ImageOutline />}
           iconActive={<Image />}
-          label={'Posts list'}
+          label={t.postsList}
         />
       </div>
     </nav>

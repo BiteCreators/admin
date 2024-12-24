@@ -4,6 +4,7 @@ import { formatDate } from '@/common/lib/utils/formatDate'
 import { useGetUser } from '@/features/user/model/useGetUser'
 import { Alert, Avatar, Loader, Typography } from '@byte-creators/ui-kit'
 import { ArrowBackOutline } from '@byte-creators/ui-kit/icons'
+import { useScopedTranslation } from '@byte-creators/utils'
 import { useRouter } from 'next/router'
 
 import cl from './userHeader.module.scss'
@@ -12,6 +13,7 @@ type Props = {}
 export const UserHeader = ({}: Props) => {
   const { query } = useRouter()
   const router = useRouter()
+  const t = useScopedTranslation('AdminUserProfile')
   const { data, error, loading } = useGetUser(Number(query.id))
   const user = data?.getUser
 
@@ -23,7 +25,7 @@ export const UserHeader = ({}: Props) => {
     return <Loader />
   }
   if (!user) {
-    return <Alert message={'User not found'} type={'error'} />
+    return <Alert message={t.errors.userNotFound} type={'error'} />
   }
 
   return (
@@ -35,7 +37,7 @@ export const UserHeader = ({}: Props) => {
           }}
         >
           <ArrowBackOutline viewBox={'0 3 20 20'} />
-          <Typography>Back to Users List</Typography>
+          <Typography>{t.back}</Typography>
         </button>
       </div>
       <div className={cl.nameAndPhotoContainer}>
@@ -51,11 +53,11 @@ export const UserHeader = ({}: Props) => {
       </div>
       <div className={cl.userInfoContainer}>
         <div className={cl.userInfo}>
-          <Typography className={cl.lightText}>UserID</Typography>
+          <Typography className={cl.lightText}>{t.userID}</Typography>
           <Typography variant={'medium-text'}>{user.id}</Typography>
         </div>
         <div className={cl.userInfo}>
-          <Typography className={cl.lightText}>Profile Creation Date</Typography>
+          <Typography className={cl.lightText}>{t.profileCreationDate}</Typography>
           <Typography variant={'medium-text'}>{formatDate(user.createdAt)}</Typography>
         </div>
       </div>

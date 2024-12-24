@@ -17,6 +17,7 @@ export const Payments = () => {
     handlePaymentsPortionChange,
     loading,
     pagesCount,
+    t,
   } = usePayments(Number(query.id))
 
   let payments = [] as TableData[]
@@ -35,19 +36,19 @@ export const Payments = () => {
 
   const headers = [
     {
-      name: 'Date of Payment',
+      name: t.paymentDate,
     },
     {
-      name: 'End date of subscription',
+      name: t.endDateOfSubscription,
     },
     {
-      name: 'Amount,$',
+      name: t.amount,
     },
     {
-      name: 'Subscription Type',
+      name: t.subscriptionType,
     },
     {
-      name: 'Payment Type',
+      name: t.paymentType,
     },
   ]
 
@@ -58,7 +59,7 @@ export const Payments = () => {
   return (
     <div className={'relative mb-12 sm:flex sm:flex-col'}>
       {data?.getPaymentsByUser.items.length === 0 ? (
-        <Typography> User does not have any subscriptions yet</Typography>
+        <Typography>{t.noSubscription}</Typography>
       ) : (
         <div>
           <Table

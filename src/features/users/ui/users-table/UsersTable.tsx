@@ -16,6 +16,7 @@ export const UsersTable = () => {
     handlerPageSize,
     refetchUsers,
     sortStore,
+    t,
     usersListData,
     usersListError,
     usersListLoading,
@@ -53,10 +54,10 @@ export const UsersTable = () => {
 
   const headers: TableHeader[] = [
     {
-      name: 'User ID',
+      name: t.userId,
     },
     {
-      name: 'Username',
+      name: t.userName,
       //TODO: fix those typings
       sort: (
         <TableSortButton<typeof USERS_SORT_BY>
@@ -66,10 +67,10 @@ export const UsersTable = () => {
       ),
     },
     {
-      name: 'Profile link',
+      name: t.profileLink,
     },
     {
-      name: 'Date added',
+      name: t.dateAdded,
       sort: (
         <TableSortButton<typeof USERS_SORT_BY>
           sortBy={USERS_SORT_BY.DateAdded}

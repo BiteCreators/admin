@@ -4,6 +4,7 @@ import { SortDirection } from '@/common/__generated-types__/graphql'
 import { QueryParams } from '@/common/types/queryParams.type'
 import { SortStore, USERS_SORT_BY } from '@/entities/sort'
 import { useQuery } from '@apollo/client'
+import { useScopedTranslation } from '@byte-creators/utils'
 import { useRouter } from 'next/router'
 
 import { GET_FOLLOWING } from '../api/followingQuery'
@@ -16,6 +17,7 @@ export const useFollowing = () => {
 
   const [pageNumber, setPageNumber] = useState<number>(1)
   const [pageSize, setPageSize] = useState<number>(10)
+  const t = useScopedTranslation('FollowersAdmin')
 
   const { data, error, loading } = useQuery(GET_FOLLOWING, {
     fetchPolicy: 'no-cache',
@@ -40,5 +42,6 @@ export const useFollowing = () => {
     pageNumber,
     pageSize,
     sortStore,
+    t,
   }
 }

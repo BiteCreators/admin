@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 
 import { useMutation } from '@apollo/client'
+import { useScopedTranslation } from '@byte-creators/utils'
 import { useRouter } from 'next/router'
 
 import { BAN_USER } from '../api/banUserQuery'
@@ -17,7 +18,7 @@ export const useOptions = ({
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const optionsRef = useRef<HTMLDivElement>(null)
   const [error, setError] = useState<null | string>(null)
-
+  const t = useScopedTranslation('UserslistOptions')
   const [isOpenBanModal, setIsOpenBanModal] = useState<boolean>(false)
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState<boolean>(false)
   const router = useRouter()
@@ -99,6 +100,7 @@ export const useOptions = ({
     setIsOpen,
     setIsOpenBanModal,
     setIsOpenDeleteModal,
+    t,
     toggleOptions,
   }
 }

@@ -18,10 +18,11 @@ export const Following = () => {
     pageNumber,
     pageSize,
     sortStore,
+    t,
   } = useFollowing()
 
   if (data?.getFollowing.totalCount === 0) {
-    return <p>No Following</p>
+    return <p>{t.noFollowing}</p>
   }
 
   const tableData = data?.getFollowing.items.map(el => {
@@ -34,10 +35,10 @@ export const Following = () => {
   })
   const tableHeaderData: TableHeader[] = [
     {
-      name: 'User ID',
+      name: t.userId,
     },
     {
-      name: 'Username',
+      name: t.userName,
       sort: (
         <TableSortButton<typeof USERS_SORT_BY>
           sortBy={USERS_SORT_BY.UserName}
@@ -46,10 +47,10 @@ export const Following = () => {
       ),
     },
     {
-      name: 'Profile link',
+      name: t.profileLink,
     },
     {
-      name: 'Subscription Date',
+      name: t.subscriptionDate,
       sort: (
         <TableSortButton<typeof USERS_SORT_BY>
           sortBy={USERS_SORT_BY.DateAdded}

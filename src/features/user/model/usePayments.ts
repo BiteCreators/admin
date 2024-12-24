@@ -2,6 +2,7 @@ import { useState } from 'react'
 
 import { GET_PAYMENTS_BY_USER } from '@/features/user/api/paymentsQuery'
 import { useQuery } from '@apollo/client'
+import { useScopedTranslation } from '@byte-creators/utils'
 
 export const usePayments = (userId: number) => {
   const [currentPage, setCurrentPage] = useState(1)
@@ -9,6 +10,8 @@ export const usePayments = (userId: number) => {
   const { data, error, loading, refetch } = useQuery(GET_PAYMENTS_BY_USER, {
     variables: { pageNumber: currentPage, pageSize: dataPortion, userId },
   })
+  const t = useScopedTranslation('AdminPayments')
+
   const handleCurrentPageChange = (page: number) => {
     setCurrentPage(page)
     refetch({ pageNumber: page })
@@ -39,6 +42,7 @@ export const usePayments = (userId: number) => {
     handlePaymentsPortionChange,
     loading,
     pagesCount,
+    t,
   }
 }
 // // для тестир-ия:

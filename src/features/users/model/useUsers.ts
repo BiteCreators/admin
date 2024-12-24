@@ -4,6 +4,7 @@ import { SortDirection, UserBlockStatus } from '@/common/__generated-types__/gra
 import { QueryParams } from '@/common/types/queryParams.type'
 import { SortStore, USERS_SORT_BY } from '@/entities/sort'
 import { useQuery } from '@apollo/client'
+import { useScopedTranslation } from '@byte-creators/utils'
 import { useRouter } from 'next/router'
 
 import { GET_USERS } from '../api/usersQuery'
@@ -12,6 +13,7 @@ const sortStore = new SortStore(USERS_SORT_BY)
 
 export const useUsers = () => {
   const router = useRouter()
+  const t = useScopedTranslation('FollowersAdmin')
 
   const {
     block_status_filter: blockStatusFilter,
@@ -55,6 +57,7 @@ export const useUsers = () => {
     handlerPageSize,
     refetchUsers,
     sortStore,
+    t,
     usersListData,
     usersListError,
     usersListLoading,

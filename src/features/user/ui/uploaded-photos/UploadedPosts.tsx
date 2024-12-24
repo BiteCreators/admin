@@ -15,6 +15,7 @@ export const UploadedPosts = () => {
     setEndCursorId,
     setHasMore,
     setPosts,
+    t,
     triggerRef,
   } = useUploadedPosts()
 
@@ -31,7 +32,7 @@ export const UploadedPosts = () => {
     return <Alert message={error.message} type={'error'} />
   }
   if (!loading && posts.length === 0) {
-    return <Typography>No Uploaded Photos</Typography>
+    return <Typography>{t.noPhotos}</Typography>
   }
 
   return (

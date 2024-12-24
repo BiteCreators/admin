@@ -19,7 +19,7 @@ export const Search = ({
   paramName = 'search',
   withAutoSearch = true,
 }: Props) => {
-  const { handleChangeSearchInput, handleClickSearchButton, value } = useSearch({
+  const { handleChangeSearchInput, handleClickSearchButton, t, value } = useSearch({
     debounceDelay,
     handleSearchButtonClick,
     paramName,
@@ -32,7 +32,7 @@ export const Search = ({
         inputType={'search'}
         onChange={handleChangeSearchInput}
         onSearchClick={handleClickSearchButton}
-        placeholder={'Search'}
+        placeholder={t.search}
         value={value}
       />
     </div>

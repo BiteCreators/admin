@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import { TabsBase } from '@byte-creators/ui-kit'
+import { useScopedTranslation } from '@byte-creators/utils'
 
 import { Followers } from '../followers/Followers'
 import { Following } from '../following/Following'
@@ -11,6 +12,7 @@ type TabValues = 'followers' | 'following' | 'payments' | 'uploaded-photos'
 
 export const UserTabs = () => {
   const [selectedTab, setSelectedTab] = useState<TabValues>('uploaded-photos')
+  const t = useScopedTranslation('AdminUserProfile')
 
   return (
     <TabsBase<TabValues>
@@ -19,22 +21,22 @@ export const UserTabs = () => {
       tabsData={[
         {
           content: <UploadedPosts />,
-          label: 'Uploaded photos',
+          label: t.uploadedPhotos,
           value: 'uploaded-photos',
         },
         {
           content: <Payments />,
-          label: 'Payments',
+          label: t.payments,
           value: 'payments',
         },
         {
           content: <Followers />,
-          label: 'Followers',
+          label: t.followers,
           value: 'followers',
         },
         {
           content: <Following />,
-          label: 'Following',
+          label: t.following,
           value: 'following',
         },
       ]}

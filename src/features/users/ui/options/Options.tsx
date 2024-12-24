@@ -25,26 +25,27 @@ export const Options = ({ isBan, refetchUsers, userId, userName }: Props) => {
     optionsRef,
     setIsOpenBanModal,
     setIsOpenDeleteModal,
+    t,
   } = useOptions({ refetchUsers, userId })
 
   const items = [
     {
       icon: <PersonRemoveOutline />,
-      label: 'Delete user',
+      label: t.deleteUser,
       onClick: () => {
         setIsOpenDeleteModal(true)
       },
     },
     {
       icon: <Block />,
-      label: isBan ? 'Unban in the system' : 'Ban user',
+      label: isBan ? t.unbanUser : t.banUser,
       onClick: () => {
         setIsOpenBanModal(true)
       },
     },
     {
       icon: <MoreHorizontalOutline />,
-      label: 'More information',
+      label: t.moreInfo,
       onClick: handleMoreInformationClick,
     },
   ]

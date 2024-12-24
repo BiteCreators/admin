@@ -21,7 +21,7 @@ export const Followers = () => {
   } = useFollowers()
 
   if (data?.getFollowers.totalCount === 0) {
-    return <p>No Followers</p>
+    return <p>{t.noFollowers}</p>
   }
   const tableData = data?.getFollowers.items.map(follower => ({
     1: follower.userId,
