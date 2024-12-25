@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
 import { ActionConfirmation, Select, SelectItem } from '@byte-creators/ui-kit'
+import { useScopedTranslation } from '@byte-creators/utils'
 
 import s from './styles.module.scss'
 
@@ -26,18 +27,17 @@ export const ActionConfirmations = ({
   setIsOpenDeleteModal,
   userName,
 }: Props) => {
-  const [reason, setReason] = useState<string>('Another reason')
+  const t = useScopedTranslation('UserslistOptions')
+  const [reason, setReason] = useState<string>(t.anotherReason)
 
   const messageDeleteModal = (
     <>
-      Are you sure to delete user&nbsp;
-      <span className={s.name}>{userName}</span>?
+      {t.youSure} {t.delete} {userName}?
     </>
   )
   const messageBanModal = (
     <>
-      Are you sure to {isBan ? `unban` : 'ban'} this user,&nbsp;
-      <span className={s.name}>{userName}</span>?
+      {t.youSure} {isBan ? t.unban : t.ban} {userName}?
     </>
   )
   const handleConfirmStatusBan = () => {
@@ -58,7 +58,7 @@ export const ActionConfirmations = ({
         onConfirm={handleConfirmDelete}
         onReject={() => {}}
         setIsOpen={setIsOpenDeleteModal}
-        title={'Delete user'}
+        title={t.deleteUser}
       />
       <ActionConfirmation
         classNameButtons={s.btn}
@@ -68,13 +68,13 @@ export const ActionConfirmations = ({
         onConfirm={handleConfirmStatusBan}
         onReject={() => {}}
         setIsOpen={setIsOpenBanModal}
-        title={'Ban user'}
+        title={t.banUser}
       >
         {!isBan && (
           <Select onValueChange={setReason} value={reason}>
-            <SelectItem value={'Bad behavior'}>Bad behavior</SelectItem>
-            <SelectItem value={'Advertising placement'}>Advertising placement</SelectItem>
-            <SelectItem value={'Another reason'}>Another reason</SelectItem>
+            <SelectItem value={'Bad behavior'}>{t.badBehavior}</SelectItem>
+            <SelectItem value={'Advertising placement'}>{t.advertisingPlacement}</SelectItem>
+            <SelectItem value={'Another reason'}>{t.anotherReason}</SelectItem>
           </Select>
         )}
       </ActionConfirmation>

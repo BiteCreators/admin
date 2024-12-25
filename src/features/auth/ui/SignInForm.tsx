@@ -3,8 +3,6 @@ import { Alert, Button, Card, FormInput, Typography } from '@byte-creators/ui-ki
 
 import cl from './styles/sign-in-form.module.scss'
 
-import { AcceptCookieAlert } from './AcceptCookieAlert'
-
 export const SignInForm = () => {
   const { control, error, handleSubmit, onSubmit, setError, setUseCookie, t, useCookie } =
     useSignIn()
@@ -44,7 +42,7 @@ export const SignInForm = () => {
           />
         )}
       </Card>
-      <AcceptCookieAlert setUseCookie={setUseCookie} useCookie={useCookie} />
+      {/*<AcceptCookieAlert setUseCookie={setUseCookie} useCookie={useCookie} />*/}
     </>
   )
 }

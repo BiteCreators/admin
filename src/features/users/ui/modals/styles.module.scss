@@ -2,7 +2,7 @@
 
 .btn {
   flex-direction: row-reverse;
-  gap: 70px;
+  gap: 1rem;
   justify-content: space-between;
   margin-top: 48px;
 
@@ -17,4 +17,6 @@
 
 .message {
   margin: 18px 0;
+  word-wrap: break-word;
+  text-align: center;
 }
