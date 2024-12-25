@@ -1,16 +1,17 @@
-import { PaymetnsTable } from '@/features/payments-list'
 import React from 'react'
 
-import s from "./payments.module.scss"
+import { PaymentsTable } from '@/features/payments-list'
 import { Search } from '@/features/search'
+
+import s from './payments.module.scss'
 
 export default function Payments() {
   return (
     <div className={s.root}>
       <div className={s.searchSection}>
-        <Search paramName='search' fullWidth />
+        <Search fullWidth paramName={'search'} />
       </div>
-      <PaymetnsTable />
+      <PaymentsTable />
     </div>
   )
 }

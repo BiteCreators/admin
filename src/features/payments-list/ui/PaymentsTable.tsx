@@ -1,12 +1,14 @@
-import { Alert, LoaderBlock, Pagination, Table } from "@byte-creators/ui-kit"
-import { usePaymentsTable } from "../model/usePaymentsTable"
-import s from "./paymentsTable.module.scss"
-import { getTableHeaders } from "./getTableHeaders"
-import { getTableData } from "./getTableData"
+import { Alert, LoaderBlock, Pagination, Table } from '@byte-creators/ui-kit'
 
-export const PaymetnsTable = () => {
+import s from './paymentsTable.module.scss'
 
-  const { data, handlePageChange, sortStore, handlePageSizeChange, loading, error } = usePaymentsTable()
+import { usePaymentsTable } from '../model/usePaymentsTable'
+import { getTableData } from './getTableData'
+import { getTableHeaders } from './getTableHeaders'
+
+export const PaymentsTable = () => {
+  const { data, error, handlePageChange, handlePageSizeChange, loading, sortStore } =
+    usePaymentsTable()
 
   const paymentsData = getTableData(data)
   const headers = getTableHeaders(sortStore)
