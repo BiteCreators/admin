@@ -6,7 +6,7 @@
     "dev": "next dev -p 3001",
     "build": "next build",
     "build:production": "next build",
-    "start": "next start -p 3001",
+    "start": "next start",
     "lint": "next lint",
     "compile": "graphql-codegen --config src/common/lib/utils/typeGenerator.ts",
     "watch": "graphql-codegen -w --config src/common/lib/utils/typeGenerator.ts"
