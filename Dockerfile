@@ -4,7 +4,7 @@ WORKDIR /app
 COPY package*.json ./
 COPY pnpm-lock.yaml ./
 RUN npm install -g pnpm
-RUN pnpm install --frozen-lock-file
+RUN pnpm install --frozen-lockfile
 
 #Билдим приложение
 #Кэширование зависимостей — если файлы в проекте изменились,
