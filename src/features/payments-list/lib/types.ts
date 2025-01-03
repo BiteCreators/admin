@@ -1,6 +1,6 @@
 export enum PAYMENTS_SORT_BY {
-  CREATED_AT = "createdAt",
-  USER_NAME = "userName",
-  PAYMENT_METHOD = "paymentMethod",
-  AMOUNT = "amount",
-} 
+  AMOUNT = 'amount',
+  CREATED_AT = 'createdAt',
+  PAYMENT_METHOD = 'paymentMethod',
+  USER_NAME = 'userName',
+}
