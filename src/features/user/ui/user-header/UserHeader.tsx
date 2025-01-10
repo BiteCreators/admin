@@ -17,10 +17,6 @@ export const UserHeader = ({}: Props) => {
   const { data, error, loading } = useGetUser(Number(query.id))
   const user = data?.getUser
 
-  const exampleImg =
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZ6th-oTbkDMbDOPGU_kkRMM55lfvRYgM8JA&s'
-
-  //TODO: remove mock (someone)
   if (loading) {
     return <Loader />
   }
@@ -41,7 +37,7 @@ export const UserHeader = ({}: Props) => {
         </button>
       </div>
       <div className={cl.nameAndPhotoContainer}>
-        <Avatar avatarURL={user.profile.avatars?.[0]?.url || exampleImg} className={cl.avatar} />
+        <Avatar avatarURL={user.profile.avatars?.[0]?.url || ''} className={cl.avatar} />
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
           <Typography variant={'h1'}>
             {user.profile.firstName || ' '} {user.profile.lastName || ' '}
