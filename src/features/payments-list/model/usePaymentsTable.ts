@@ -22,7 +22,7 @@ export const usePaymentsTable = () => {
   const { direction, search, sortBy }: PaymentsQueryParams = query as PaymentsQueryParams
 
   const [pageNumber, setPageNumber] = useState(1)
-  const [pageSize, setPageSize] = useState(10)
+  const [pageSize, setPageSize] = useState(6)
 
   const { data, error, loading } = useQuery(GET_PAYMENTS, {
     variables: {

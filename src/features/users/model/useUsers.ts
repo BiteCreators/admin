@@ -23,7 +23,7 @@ export const useUsers = () => {
   }: QueryParams = router.query
 
   const [pageNumber, setPageNumber] = useState<number>(1)
-  const [pageSize, setPageSize] = useState<number>(10)
+  const [pageSize, setPageSize] = useState<number>(8)
 
   const {
     data: usersListData,

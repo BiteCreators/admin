@@ -1,4 +1,5 @@
 import { SubscriptionByPaymentModel } from '@/common/__generated-types__/graphql'
+import { STARTING_EIGHT_PAGES_PROTION_OPTIONS } from '@/common/lib/consts'
 import { usePayments } from '@/features/user/model/usePayments'
 import { Alert, LoaderBlock, Pagination, Table, TableData, Typography } from '@byte-creators/ui-kit'
 import { useRouter } from 'next/router'
@@ -75,6 +76,7 @@ export const Payments = () => {
             onClickPaginationButton={handleCurrentPageChange}
             pagesCount={pagesCount}
             pagesPortion={dataPortion.toString()}
+            pagesPortionOptions={STARTING_EIGHT_PAGES_PROTION_OPTIONS}
           />
         </div>
       )}

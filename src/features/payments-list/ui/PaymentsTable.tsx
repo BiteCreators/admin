@@ -30,7 +30,8 @@ export const PaymentsTable = () => {
         onChangePagesPortion={handlePageSizeChange}
         onClickPaginationButton={handlePageChange}
         pagesCount={data?.pagesCount || 1}
-        pagesPortion={String(data?.pageSize || 10)}
+        pagesPortion={String(data?.pageSize || 6)}
+        pagesPortionOptions={['6', '10', '20', '30', '50', '100']}
       />
     </div>
   )
