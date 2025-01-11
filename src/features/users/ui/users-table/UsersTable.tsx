@@ -1,57 +1,25 @@
 import * as React from 'react'
 
-import { STARTING_EIGHT_PAGES_PROTION_OPTIONS } from '@/common/lib/consts'
-import { TableSortButton, USERS_SORT_BY } from '@/entities/sort'
-import { Alert, LoaderBlock, Pagination, Table, TableHeader } from '@byte-creators/ui-kit'
+import { GetUsersQuery, UserBlockStatus } from '@/common/__generated-types__/graphql'
+import { TableFactory } from '@/common/ui/table-factory/TableFactory'
+import { SortStore, TableSortButton, USERS_SORT_BY } from '@/entities/sort'
+import { TableHeader } from '@byte-creators/ui-kit'
 import { Block } from '@byte-creators/ui-kit/icons'
+import { useScopedTranslation } from '@byte-creators/utils'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 import s from './styles.module.scss'
 
-import { useUsers } from '../../model/useUsers'
+import { GET_USERS } from '../../api/usersQuery'
 import { Options } from '../options/Options'
 
+const sortStore = new SortStore(USERS_SORT_BY)
+
 export const UsersTable = () => {
-  const {
-    handlerPageNumber,
-    handlerPageSize,
-    refetchUsers,
-    sortStore,
-    t,
-    usersListData,
-    usersListError,
-    usersListLoading,
-  } = useUsers()
-
-  if (usersListLoading) {
-    return <LoaderBlock />
-  }
-
-  const exampleUsersData = usersListData?.getUsers.users.map(user => {
-    return {
-      1: (
-        <div className={s.table__users}>
-          <div className={s.table__bun}>{!!user.userBan?.reason && <Block />}</div>
-          {user.id}
-        </div>
-      ),
-      2: <span>{user.userName}</span>,
-      3: (
-        <Link className={'link'} href={`users/${user.id}`}>
-          {user.userName}
-        </Link>
-      ),
-      4: new Date(user.createdAt).toLocaleDateString(),
-      5: (
-        <Options
-          isBan={!!user.userBan?.reason}
-          refetchUsers={refetchUsers}
-          userId={user.id}
-          userName={user.userName}
-        />
-      ),
-    }
-  })
+  const t = useScopedTranslation('FollowersAdmin')
+  const { query } = useRouter()
+  const { block_status_filter }: { block_status_filter?: UserBlockStatus } = query
 
   const headers: TableHeader[] = [
     {
@@ -83,23 +51,50 @@ export const UsersTable = () => {
       name: '',
     },
   ]
+  const getTableData = (data: GetUsersQuery | undefined, refetch: () => void) => {
+    if (!data) {
+      return []
+    }
+
+    return data.getUsers.users.map(user => {
+      return {
+        1: (
+          <div className={s.table__users}>
+            <div className={s.table__bun}>{!!user.userBan?.reason && <Block />}</div>
+            {user.id}
+          </div>
+        ),
+        2: <span>{user.userName}</span>,
+        3: (
+          <Link className={'link'} href={`users/${user.id}`}>
+            {user.userName}
+          </Link>
+        ),
+        4: new Date(user.createdAt).toLocaleDateString(),
+        5: (
+          <Options
+            isBan={!!user.userBan?.reason}
+            refetchUsers={refetch}
+            userId={user.id}
+            userName={user.userName}
+          />
+        ),
+      }
+    })
+  }
+
+  const getPagesCount = (data: GetUsersQuery) => data.getUsers.pagination.pagesCount
 
   return (
-    <div className={s.table}>
-      {usersListError && <Alert message={usersListError.message} type={'error'} />}
-      <Table
-        classNameHeadersItem={s.table__headers}
-        headers={headers}
-        tableData={exampleUsersData || []}
-      />
-      <Pagination
-        currentPage={usersListData?.getUsers.pagination.page || 1}
-        onChangePagesPortion={handlerPageSize}
-        onClickPaginationButton={handlerPageNumber}
-        pagesCount={usersListData?.getUsers.pagination.pagesCount || 1}
-        pagesPortion={String(usersListData?.getUsers.pagination.pageSize || 8)}
-        pagesPortionOptions={STARTING_EIGHT_PAGES_PROTION_OPTIONS}
-      />
-    </div>
+    <TableFactory
+      defaultPageSize={8}
+      extraVariables={{
+        statusFilter: block_status_filter || UserBlockStatus.All,
+      }}
+      getPagesCount={getPagesCount}
+      getTableData={getTableData}
+      headers={headers}
+      query={GET_USERS}
+    />
   )
 }
