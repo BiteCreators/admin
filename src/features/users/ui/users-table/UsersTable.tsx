@@ -1,5 +1,6 @@
 import * as React from 'react'
 
+import { STARTING_EIGHT_PAGES_PROTION_OPTIONS } from '@/common/lib/consts'
 import { TableSortButton, USERS_SORT_BY } from '@/entities/sort'
 import { Alert, LoaderBlock, Pagination, Table, TableHeader } from '@byte-creators/ui-kit'
 import { Block } from '@byte-creators/ui-kit/icons'
@@ -96,7 +97,8 @@ export const UsersTable = () => {
         onChangePagesPortion={handlerPageSize}
         onClickPaginationButton={handlerPageNumber}
         pagesCount={usersListData?.getUsers.pagination.pagesCount || 1}
-        pagesPortion={String(usersListData?.getUsers.pagination.pageSize || 10)}
+        pagesPortion={String(usersListData?.getUsers.pagination.pageSize || 8)}
+        pagesPortionOptions={STARTING_EIGHT_PAGES_PROTION_OPTIONS}
       />
     </div>
   )

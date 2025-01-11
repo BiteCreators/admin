@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { STARTING_EIGHT_PAGES_PROTION_OPTIONS } from '@/common/lib/consts'
 import { TableSortButton, USERS_SORT_BY } from '@/entities/sort'
 import { useFollowers } from '@/features/user/model/useFollowers'
 import { Alert, LoaderBlock, Pagination, Table } from '@byte-creators/ui-kit'
@@ -70,7 +71,8 @@ export const Followers = () => {
               onChangePagesPortion={handlerPageSize}
               onClickPaginationButton={handlerPageNumber}
               pagesCount={data?.getFollowers.pagesCount}
-              pagesPortion={String(pageSize)}
+              pagesPortion={String(pageSize) || '8'}
+              pagesPortionOptions={STARTING_EIGHT_PAGES_PROTION_OPTIONS}
             />
           )
         : null}

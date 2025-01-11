@@ -16,7 +16,7 @@ export const useFollowing = () => {
   const { direction, sortBy }: QueryParams = query
 
   const [pageNumber, setPageNumber] = useState<number>(1)
-  const [pageSize, setPageSize] = useState<number>(10)
+  const [pageSize, setPageSize] = useState<number>(8)
   const t = useScopedTranslation('FollowersAdmin')
 
   const { data, error, loading } = useQuery(GET_FOLLOWING, {

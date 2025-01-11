@@ -6,7 +6,7 @@ import { useScopedTranslation } from '@byte-creators/utils'
 
 export const usePayments = (userId: number) => {
   const [currentPage, setCurrentPage] = useState(1)
-  const [dataPortion, setDataPortion] = useState(10)
+  const [dataPortion, setDataPortion] = useState(8)
   const { data, error, loading, refetch } = useQuery(GET_PAYMENTS_BY_USER, {
     variables: { pageNumber: currentPage, pageSize: dataPortion, userId },
   })

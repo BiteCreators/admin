@@ -16,7 +16,7 @@ export const useFollowers = () => {
   const t = useScopedTranslation('FollowersAdmin')
 
   const [pageNumber, setPageNumber] = useState<number>(1)
-  const [pageSize, setPageSize] = useState<number>(10)
+  const [pageSize, setPageSize] = useState<number>(8)
   const { data, error, loading } = useQuery(GET_FOLLOWERS, {
     fetchPolicy: 'no-cache',
     variables: {
