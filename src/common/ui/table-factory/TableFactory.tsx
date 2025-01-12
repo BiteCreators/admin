@@ -10,6 +10,7 @@ import {
   Table,
   TableData,
   TableHeader,
+  Typography,
 } from '@byte-creators/ui-kit'
 import { useRouter } from 'next/router'
 
@@ -18,6 +19,7 @@ const pagesPortionOptions = ['6', '8', '10', '20', '30', '50', '100']
 type Props<TRes, TVars extends Record<string, any>> = {
   classNameHeadersItem?: string
   defaultPageSize?: number
+  emptyMessage?: string
   extraVariables?: Partial<TVars>
   getPagesCount: (response: NonNullable<MaybeMasked<TRes>>, currentPageSize: number) => number
   getTableData: (
@@ -31,6 +33,7 @@ type Props<TRes, TVars extends Record<string, any>> = {
 export const TableFactory = <TRes, TVars extends Record<string, any>>({
   classNameHeadersItem,
   defaultPageSize,
+  emptyMessage = 'No items found',
   extraVariables,
   getPagesCount,
   getTableData,
@@ -76,7 +79,7 @@ export const TableFactory = <TRes, TVars extends Record<string, any>>({
   if (data) {
     const tableData = getTableData(data, handleRefetch)
 
-    return (
+    return tableData.length > 0 ? (
       <>
         <Table
           classNameHeadersItem={classNameHeadersItem}
@@ -94,6 +97,8 @@ export const TableFactory = <TRes, TVars extends Record<string, any>>({
           />
         )}
       </>
+    ) : (
+      <Typography>{emptyMessage}</Typography>
     )
   }
 }

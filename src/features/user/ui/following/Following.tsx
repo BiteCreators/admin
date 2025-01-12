@@ -1,31 +1,20 @@
 import React from 'react'
 
 import { GetFollowingQuery } from '@/common/__generated-types__/graphql'
-import { STARTING_EIGHT_PAGES_PROTION_OPTIONS } from '@/common/lib/consts'
 import { TableFactory } from '@/common/ui/table-factory/TableFactory'
-import { TableSortButton, USERS_SORT_BY } from '@/entities/sort'
-import { Alert, LoaderBlock, Pagination, Table, TableHeader } from '@byte-creators/ui-kit'
+import { SortStore, TableSortButton, USERS_SORT_BY } from '@/entities/sort'
+import { TableHeader } from '@byte-creators/ui-kit'
+import { useScopedTranslation } from '@byte-creators/utils'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-import s from './following.module.scss'
-
 import { GET_FOLLOWING } from '../../api/followingQuery'
-import { useFollowing } from '../../model/useFollowing'
+
+const sortStore = new SortStore(USERS_SORT_BY)
 
 export const Following = () => {
   const { query } = useRouter()
-  const {
-    data,
-    error,
-    handlerPageNumber,
-    handlerPageSize,
-    loading,
-    pageNumber,
-    pageSize,
-    sortStore,
-    t,
-  } = useFollowing()
+  const t = useScopedTranslation('FollowersAdmin')
 
   const getTableData = (data: GetFollowingQuery | undefined) =>
     data
@@ -70,6 +59,7 @@ export const Following = () => {
 
   return (
     <TableFactory
+      defaultPageSize={8}
       extraVariables={{ userId: query.id ? +query.id : undefined }}
       getPagesCount={getPagesCount}
       getTableData={getTableData}
