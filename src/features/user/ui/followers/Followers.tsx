@@ -1,37 +1,35 @@
 import React from 'react'
 
-import { STARTING_EIGHT_PAGES_PROTION_OPTIONS } from '@/common/lib/consts'
-import { TableSortButton, USERS_SORT_BY } from '@/entities/sort'
-import { useFollowers } from '@/features/user/model/useFollowers'
-import { Alert, LoaderBlock, Pagination, Table } from '@byte-creators/ui-kit'
+import { GetFollowersQuery } from '@/common/__generated-types__/graphql'
+import { TableFactory } from '@/common/ui/table-factory/TableFactory'
+import { SortStore, TableSortButton, USERS_SORT_BY } from '@/entities/sort'
+import { TableHeader } from '@byte-creators/ui-kit'
+import { useScopedTranslation } from '@byte-creators/utils'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
-import s from './followers.module.scss'
+import { GET_FOLLOWERS } from '../../api/followersQueries'
+
+const sortStore = new SortStore(USERS_SORT_BY)
 
 export const Followers = () => {
-  const {
-    data,
-    error,
-    handlerPageNumber,
-    handlerPageSize,
-    loading,
-    pageNumber,
-    pageSize,
-    sortStore,
-    t,
-  } = useFollowers()
+  const { query } = useRouter()
+  const t = useScopedTranslation('FollowersAdmin')
 
-  if (data?.getFollowers.totalCount === 0) {
-    return <p>{t.noFollowers}</p>
+  const getTableData = (data: GetFollowersQuery | undefined) => {
+    if (!data) {
+      return []
+    }
+
+    return data.getFollowers.items.map(follower => ({
+      1: follower.userId,
+      2: follower.userName,
+      3: <Link href={`/users/${follower.userId}`}>{follower.userName}</Link>,
+      4: new Date(follower.createdAt).toLocaleDateString(),
+    }))
   }
-  const tableData = data?.getFollowers.items.map(follower => ({
-    1: follower.userId,
-    2: follower.userName,
-    3: <Link href={`/users/${follower.userId}`}>{follower.userName}</Link>,
-    4: new Date(follower.createdAt).toLocaleDateString(),
-  }))
 
-  const tableHeaderData = [
+  const headers: TableHeader[] = [
     {
       name: t.userId,
     },
@@ -56,27 +54,15 @@ export const Followers = () => {
     },
   ]
 
-  if (loading) {
-    return <LoaderBlock />
-  }
+  const getPagesCount = (data: GetFollowersQuery) => data.getFollowers.pagesCount
 
   return (
-    <>
-      <Table headers={tableHeaderData} tableData={tableData || []} />
-      {data
-        ? data?.getFollowers.totalCount > 10 && (
-            <Pagination
-              className={s.pagination}
-              currentPage={pageNumber}
-              onChangePagesPortion={handlerPageSize}
-              onClickPaginationButton={handlerPageNumber}
-              pagesCount={data?.getFollowers.pagesCount}
-              pagesPortion={String(pageSize) || '8'}
-              pagesPortionOptions={STARTING_EIGHT_PAGES_PROTION_OPTIONS}
-            />
-          )
-        : null}
-      {error?.message && <Alert message={error?.message} purpose={'alert'} type={'error'}></Alert>}
-    </>
+    <TableFactory
+      extraVariables={{ userId: query.id ? +query.id : undefined }}
+      getPagesCount={getPagesCount}
+      getTableData={getTableData}
+      headers={headers}
+      query={GET_FOLLOWERS}
+    />
   )
 }

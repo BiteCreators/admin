@@ -7,7 +7,7 @@ const Users = () => {
   return (
     <div className={style.usersListContainer}>
       <div className={style.containerForFilterAndSearch}>
-        <Search paramName={'user_name'} />
+        <Search />
         <BlockUsersFilter />
       </div>
       <UsersTable />

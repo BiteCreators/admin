@@ -19,7 +19,7 @@ type Props<TRes, TVars extends Record<string, any>> = {
   classNameHeadersItem?: string
   defaultPageSize?: number
   extraVariables?: Partial<TVars>
-  getPagesCount: (response: NonNullable<MaybeMasked<TRes>>) => number
+  getPagesCount: (response: NonNullable<MaybeMasked<TRes>>, currentPageSize: number) => number
   getTableData: (
     response: NonNullable<MaybeMasked<TRes>> | undefined,
     refeth: () => void
@@ -88,7 +88,7 @@ export const TableFactory = <TRes, TVars extends Record<string, any>>({
             currentPage={pageNumber}
             onChangePagesPortion={handlePageSizeChange}
             onClickPaginationButton={handlePageNumberChange}
-            pagesCount={getPagesCount(data) || 1}
+            pagesCount={getPagesCount(data, pageSize) || 1}
             pagesPortion={String(pageSize) || '10'}
             pagesPortionOptions={pagesPortionOptions}
           />
