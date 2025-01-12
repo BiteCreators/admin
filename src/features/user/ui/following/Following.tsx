@@ -60,6 +60,7 @@ export const Following = () => {
   return (
     <TableFactory
       defaultPageSize={8}
+      emptyMessage={t.noFollowing}
       extraVariables={{ userId: query.id ? +query.id : undefined }}
       getPagesCount={getPagesCount}
       getTableData={getTableData}

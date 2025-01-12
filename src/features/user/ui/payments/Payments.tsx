@@ -52,6 +52,7 @@ export const Payments = () => {
 
   return (
     <TableFactory
+      emptyMessage={t.noSubscription}
       extraVariables={{ userId: query.id ? +query.id : undefined }}
       getPagesCount={getPagesCount}
       getTableData={getTableData}

@@ -58,6 +58,7 @@ export const Followers = () => {
 
   return (
     <TableFactory
+      emptyMessage={t.noFollowers}
       extraVariables={{ userId: query.id ? +query.id : undefined }}
       getPagesCount={getPagesCount}
       getTableData={getTableData}
