@@ -11,14 +11,14 @@ import {
 } from '@byte-creators/ui-kit/icons'
 import { useScopedTranslation } from '@byte-creators/utils'
 
-import cl from '../ui/styles/sideNavbar.module.scss'
+import s from './Sidebar.module.scss'
 
 export const SideNavbar = () => {
   const t = useScopedTranslation('Navigation')
 
   return (
-    <nav className={cl.nav}>
-      <div className={cl.navItemContainer}>
+    <nav className={s.nav}>
+      <div className={s.navItemContainer}>
         <SideNavbarItem
           href={'/users'}
           icon={<PersonOutline />}
