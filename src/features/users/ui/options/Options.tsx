@@ -77,7 +77,7 @@ export const Options = ({ isBan, refetchUsers, userId, userName }: Props) => {
         setIsOpenDeleteModal={setIsOpenDeleteModal}
         userName={userName}
       />
-      {error && <Alert message={error} purpose={'alert'} type={'error'}></Alert>}
+      {error && <Alert message={error} purpose={'toast'} type={'error'}></Alert>}
     </div>
   )
 }
