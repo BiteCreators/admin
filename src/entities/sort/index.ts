@@ -1,3 +1,5 @@
 export { USERS_SORT_BY } from './lib/consts'
+export { useSortStore } from './lib/useSortStore'
+export { useTableSortStore } from './lib/useTableSortStore'
 export { SortStore } from './model/sort.store'
 export { TableSortButton } from './ui/TableSortButton'
