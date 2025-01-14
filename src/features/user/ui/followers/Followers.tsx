@@ -2,7 +2,7 @@ import React from 'react'
 
 import { GetFollowersQuery } from '@/common/__generated-types__/graphql'
 import { TableFactory } from '@/common/ui/table-factory/TableFactory'
-import { SortStore, TableSortButton, USERS_SORT_BY } from '@/entities/sort'
+import { USERS_SORT_BY, useTableSortStore } from '@/entities/sort'
 import { TableHeader } from '@byte-creators/ui-kit'
 import { useScopedTranslation } from '@byte-creators/utils'
 import Link from 'next/link'
@@ -10,11 +10,14 @@ import { useRouter } from 'next/router'
 
 import { GET_FOLLOWERS } from '../../api/followersQueries'
 
-const sortStore = new SortStore(USERS_SORT_BY)
-
 export const Followers = () => {
   const { query } = useRouter()
   const t = useScopedTranslation('FollowersAdmin')
+
+  const [_, { CreatedAtSortButton, UserNameSortButton }] = useTableSortStore({
+    id: 'FollowersTable',
+    options: USERS_SORT_BY,
+  })
 
   const getTableData = (data: GetFollowersQuery | undefined) => {
     if (!data) {
@@ -35,22 +38,12 @@ export const Followers = () => {
     },
     {
       name: t.userName,
-      sort: (
-        <TableSortButton<typeof USERS_SORT_BY>
-          sortBy={USERS_SORT_BY.UserName}
-          sortStore={sortStore}
-        />
-      ),
+      sort: <UserNameSortButton />,
     },
     { name: t.profileLink },
     {
       name: t.subscriptionDate,
-      sort: (
-        <TableSortButton<typeof USERS_SORT_BY>
-          sortBy={USERS_SORT_BY.DateAdded}
-          sortStore={sortStore}
-        />
-      ),
+      sort: <CreatedAtSortButton />,
     },
   ]
 
