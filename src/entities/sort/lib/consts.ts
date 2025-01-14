@@ -1,1 +1,1 @@
-export const USERS_SORT_BY = ['amount', 'createdAt', 'paymentType', 'userName'] as const
+export const USERS_SORT_BY = ['createdAt', 'userName'] as const
