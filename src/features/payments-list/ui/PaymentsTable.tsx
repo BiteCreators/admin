@@ -1,19 +1,24 @@
 import { GetPaymentsQuery } from '@/common/__generated-types__/graphql'
 import { TableFactory } from '@/common/ui/table-factory/TableFactory'
-import { SortStore, TableSortButton } from '@/entities/sort'
+import { useTableSortStore } from '@/entities/sort'
 import { Avatar, TableHeader } from '@byte-creators/ui-kit'
 
 import s from './paymentsTable.module.scss'
 
 import { GET_PAYMENTS } from '../api/paymentsQuery'
+import { PAYMENTS_SORT_BY } from '../lib/consts'
 import { formatPaymentMethod } from '../lib/formatPaymentMethod'
 import { formatSubscriptionType } from '../lib/formatSubscriptionType'
-import { PAYMENTS_SORT_BY } from '../lib/types'
-
-const sortStore = new SortStore(PAYMENTS_SORT_BY)
 
 export const PaymentsTable = () => {
   const getPagesCount = (data: GetPaymentsQuery) => data.getPayments.pagesCount
+  const [
+    _,
+    { AmountSortButton, CreatedAtSortButton, PaymentMethodSortButton, UserNameSortButton },
+  ] = useTableSortStore({
+    id: 'PaymentsTable',
+    options: PAYMENTS_SORT_BY,
+  })
 
   const getTableData = (data?: GetPaymentsQuery) =>
     data
@@ -39,22 +44,22 @@ export const PaymentsTable = () => {
   const headers: TableHeader[] = [
     {
       name: 'Username',
-      sort: <TableSortButton sortBy={PAYMENTS_SORT_BY.USER_NAME} sortStore={sortStore} />,
+      sort: <UserNameSortButton />,
     },
     {
       name: 'Date added',
-      sort: <TableSortButton sortBy={PAYMENTS_SORT_BY.CREATED_AT} sortStore={sortStore} />,
+      sort: <CreatedAtSortButton />,
     },
     {
       name: 'Amount,$',
-      sort: <TableSortButton sortBy={PAYMENTS_SORT_BY.AMOUNT} sortStore={sortStore} />,
+      sort: <AmountSortButton />,
     },
     {
       name: 'Subscription',
     },
     {
       name: 'Payment method',
-      sort: <TableSortButton sortBy={PAYMENTS_SORT_BY.PAYMENT_METHOD} sortStore={sortStore} />,
+      sort: <PaymentMethodSortButton />,
     },
   ]
 
