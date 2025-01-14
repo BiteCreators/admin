@@ -3,19 +3,20 @@ import { removeParam } from '@byte-creators/utils'
 import { makeAutoObservable } from 'mobx'
 import Router from 'next/router'
 
-type SortInput<T extends { [key: string]: string }> = {
+type SortInput<T extends string> = {
   direction: SortDirection
-  sortBy: T[string]
+  sortBy: T
 }
 
-//TODO: fix these typings
-export class SortStore<T extends { [key: string]: string }> {
+export class SortStore<T extends string> {
   public direction?: SortDirection
-  public sortBy?: T[string]
-  readonly sortOptions: T
+  public sortBy?: T
+  readonly sortOptions: readonly T[]
 
-  constructor(sortOptions: T) {
-    makeAutoObservable(this)
+  constructor(sortOptions: readonly T[]) {
+    makeAutoObservable(this, {
+      sortOptions: false,
+    })
     this.sortOptions = sortOptions
   }
 
@@ -48,6 +49,21 @@ export class SortStore<T extends { [key: string]: string }> {
     this.sortBy = sortBy
     this.direction = direction
     this.redirect({ direction, sortBy })
+  }
+
+  public syncUrl() {
+    const query: Record<string, any> = { ...Router.query }
+
+    if (this.direction !== undefined) {
+      query.direction = this.direction
+    }
+    if (this.sortBy !== undefined) {
+      query.sortBy = this.sortBy
+    }
+    Router.push({
+      pathname: Router.pathname,
+      query,
+    })
   }
 
   public toggleDirection() {

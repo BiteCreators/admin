@@ -6,16 +6,9 @@ import { useRouter } from 'next/router'
 import style from './TableSortButton.module.scss'
 
 export const TableSortButton = observer(
-  <T extends { [key: string]: string }>({
-    sortBy,
-    sortStore,
-  }: {
-    sortBy: T[string]
-    sortStore: SortStore<T>
-  }) => {
+  <T extends string>({ sortBy, sortStore }: { sortBy: T; sortStore: SortStore<T> }) => {
     const router = useRouter()
 
-    console.log(sortBy)
     const handleSetAsc = () => {
       sortStore.setSort({ direction: SortDirection.Asc, sortBy })
     }
