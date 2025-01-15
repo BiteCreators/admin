@@ -1,12 +1,10 @@
 import React, { useEffect } from 'react'
 
+import { capitalize } from '@byte-creators/utils'
+
 import { SortStore } from '../model/sort.store'
 import { getSortStore, removeSortStore } from '../model/sortsStoreCache'
 import { TableSortButton } from '../ui/TableSortButton'
-
-//TODO: move this to utlis package
-const capitalize = <T extends string>(str: T) =>
-  (str.charAt(0).toUpperCase() + str.slice(1)) as Capitalize<T>
 
 export const useTableSortStore = <T extends string>({
   cleanUpOnUnmount,
