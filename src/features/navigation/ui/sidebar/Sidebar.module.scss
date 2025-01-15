@@ -1,4 +1,17 @@
-@import '../../../../styles/vars.scss';
+@import '@/styles/vars.scss';
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+.navItemContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-right: 15px;
+}
 
 .navbarContainer {
   display: flex;

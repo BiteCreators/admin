@@ -1,7 +1,7 @@
 import React from 'react'
 
+import { Sidebar } from '@/features/navigation'
 import { Header } from '@/widgets/header'
-import { Sidebar } from '@/widgets/sidebar/ui/Sidebar'
 import { PageLayout } from '@byte-creators/ui-kit'
 
 export const DefaultLayout = (page: React.ReactElement) => {

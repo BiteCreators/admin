@@ -2,7 +2,7 @@ import React from 'react'
 
 import { GetFollowingQuery } from '@/common/__generated-types__/graphql'
 import { TableFactory } from '@/common/ui/table-factory/TableFactory'
-import { SortStore, TableSortButton, USERS_SORT_BY } from '@/entities/sort'
+import { USERS_SORT_BY, useTableSortStore } from '@/entities/sort'
 import { TableHeader } from '@byte-creators/ui-kit'
 import { useScopedTranslation } from '@byte-creators/utils'
 import Link from 'next/link'
@@ -10,11 +10,13 @@ import { useRouter } from 'next/router'
 
 import { GET_FOLLOWING } from '../../api/followingQuery'
 
-const sortStore = new SortStore(USERS_SORT_BY)
-
 export const Following = () => {
   const { query } = useRouter()
   const t = useScopedTranslation('FollowersAdmin')
+  const [_, { CreatedAtSortButton, UserNameSortButton }] = useTableSortStore({
+    id: 'FollowingTable',
+    options: USERS_SORT_BY,
+  })
 
   const getTableData = (data: GetFollowingQuery | undefined) =>
     data
@@ -34,24 +36,14 @@ export const Following = () => {
     },
     {
       name: t.userName,
-      sort: (
-        <TableSortButton<typeof USERS_SORT_BY>
-          sortBy={USERS_SORT_BY.UserName}
-          sortStore={sortStore}
-        />
-      ),
+      sort: <UserNameSortButton />,
     },
     {
       name: t.profileLink,
     },
     {
       name: t.subscriptionDate,
-      sort: (
-        <TableSortButton<typeof USERS_SORT_BY>
-          sortBy={USERS_SORT_BY.DateAdded}
-          sortStore={sortStore}
-        />
-      ),
+      sort: <CreatedAtSortButton />,
     },
   ]
 
