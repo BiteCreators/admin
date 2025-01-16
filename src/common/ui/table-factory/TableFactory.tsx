@@ -3,15 +3,7 @@ import { useState } from 'react'
 import { SortDirection } from '@/common/__generated-types__/graphql'
 import { QueryParams } from '@/common/types/queryParams.type'
 import { MaybeMasked, TypedDocumentNode, useQuery } from '@apollo/client'
-import {
-  Alert,
-  LoaderBlock,
-  Pagination,
-  Table,
-  TableData,
-  TableHeader,
-  Typography,
-} from '@byte-creators/ui-kit'
+import { Alert, Pagination, Table, TableData, TableHeader, Typography } from '@byte-creators/ui-kit'
 import { useRouter } from 'next/router'
 
 const pagesPortionOptions = ['6', '8', '10', '20', '30', '50', '100']
@@ -68,8 +60,17 @@ export const TableFactory = <TRes, TVars extends Record<string, any>>({
     refetch({ pageNumber, pageSize } as unknown as Partial<TVars>)
   }
 
+  // if (loading) {
+  //   return <LoaderBlock />
+  // }
   if (loading) {
-    return <LoaderBlock />
+    return (
+      <Table
+        classNameHeadersItem={classNameHeadersItem}
+        headers={headers}
+        tableData={getTableData(undefined, handleRefetch)}
+      />
+    )
   }
 
   if (error) {
@@ -79,6 +80,7 @@ export const TableFactory = <TRes, TVars extends Record<string, any>>({
   if (data) {
     const tableData = getTableData(data, handleRefetch)
 
+    //todo: в table сделать пропс loading и в зависимости от длины tableData там рисовались скелетоны
     return tableData.length > 0 ? (
       <>
         <Table

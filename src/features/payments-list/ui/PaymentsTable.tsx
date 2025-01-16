@@ -1,3 +1,5 @@
+import Skeleton from 'react-loading-skeleton'
+
 import { GetPaymentsQuery } from '@/common/__generated-types__/graphql'
 import { TableFactory } from '@/common/ui/table-factory/TableFactory'
 import { useTableSortStore } from '@/entities/sort'
@@ -20,26 +22,40 @@ export const PaymentsTable = () => {
     options: PAYMENTS_SORT_BY,
   })
 
-  const getTableData = (data?: GetPaymentsQuery) =>
-    data
-      ? data.getPayments.items.map(item => {
-          const paymentMethod = formatPaymentMethod(item?.paymentMethod)
-          const paymentType = formatSubscriptionType(item.type)
+  const getTableData = (data?: GetPaymentsQuery) => {
+    if (!data) {
+      return Array.from({ length: 6 }).map((_, index) => ({
+        1: (
+          <div className={s.usernameCol} key={`skeleton-username-${index}`}>
+            <Skeleton circle height={36} width={36} />
+            <Skeleton width={100} />
+          </div>
+        ),
+        2: <Skeleton width={120} />,
+        3: <Skeleton width={80} />,
+        4: <Skeleton width={100} />,
+        5: <Skeleton width={150} />,
+      }))
+    }
 
-          return {
-            1: (
-              <div className={s.usernameCol}>
-                <Avatar avatarURL={item.avatars?.[0]?.url || ''} />
-                {item.userName}
-              </div>
-            ),
-            2: new Date(item.createdAt).toLocaleDateString(),
-            3: <span className={s.amountCol}>{item.amount}$</span>,
-            4: <span>{paymentType}</span>,
-            5: <span>{paymentMethod}</span>,
-          }
-        })
-      : []
+    return data.getPayments.items.map(item => {
+      const paymentMethod = formatPaymentMethod(item?.paymentMethod)
+      const paymentType = formatSubscriptionType(item.type)
+
+      return {
+        1: (
+          <div className={s.usernameCol}>
+            <Avatar avatarURL={item.avatars?.[0]?.url || ''} />
+            {item.userName}
+          </div>
+        ),
+        2: new Date(item.createdAt).toLocaleDateString(),
+        3: <span className={s.amountCol}>{item.amount}$</span>,
+        4: <span>{paymentType}</span>,
+        5: <span>{paymentMethod}</span>,
+      }
+    })
+  }
 
   const headers: TableHeader[] = [
     {
