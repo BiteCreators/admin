@@ -1,5 +1,4 @@
 import React from 'react'
-import Skeleton from 'react-loading-skeleton'
 
 import { GetFollowingQuery } from '@/common/__generated-types__/graphql'
 import { TableFactory } from '@/common/ui/table-factory/TableFactory'
@@ -21,12 +20,7 @@ export const Following = () => {
 
   const getTableData = (data: GetFollowingQuery | undefined) => {
     if (!data) {
-      return Array.from({ length: 8 }).map((_, index) => ({
-        1: <Skeleton key={`skeleton-id-${index}`} width={60} />,
-        2: <Skeleton key={`skeleton-username-${index}`} width={120} />,
-        3: <Skeleton key={`skeleton-link-${index}`} width={100} />,
-        4: <Skeleton key={`skeleton-date-${index}`} width={140} />,
-      }))
+      return []
     }
 
     return data.getFollowing.items.map(el => ({

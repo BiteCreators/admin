@@ -1,5 +1,3 @@
-import Skeleton from 'react-loading-skeleton'
-
 import { GetPaymentsQuery } from '@/common/__generated-types__/graphql'
 import { TableFactory } from '@/common/ui/table-factory/TableFactory'
 import { useTableSortStore } from '@/entities/sort'
@@ -24,18 +22,7 @@ export const PaymentsTable = () => {
 
   const getTableData = (data?: GetPaymentsQuery) => {
     if (!data) {
-      return Array.from({ length: 6 }).map((_, index) => ({
-        1: (
-          <div className={s.usernameCol} key={`skeleton-username-${index}`}>
-            <Skeleton circle height={36} width={36} />
-            <Skeleton width={100} />
-          </div>
-        ),
-        2: <Skeleton width={120} />,
-        3: <Skeleton width={80} />,
-        4: <Skeleton width={100} />,
-        5: <Skeleton width={150} />,
-      }))
+      return []
     }
 
     return data.getPayments.items.map(item => {

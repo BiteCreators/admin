@@ -1,5 +1,3 @@
-import Skeleton from 'react-loading-skeleton'
-
 import {
   GetPaymentsByUserQuery,
   SubscriptionByPaymentModel,
@@ -18,13 +16,7 @@ export const Payments = () => {
 
   const getTableData = (data: GetPaymentsByUserQuery | undefined) => {
     if (!data) {
-      return Array.from({ length: 6 }).map((_, index) => ({
-        1: <Skeleton key={`skeleton-payment-date-${index}`} width={120} />,
-        2: <Skeleton key={`skeleton-end-date-${index}`} width={120} />,
-        3: <Skeleton key={`skeleton-price-${index}`} width={80} />,
-        4: <Skeleton key={`skeleton-subscription-type-${index}`} width={100} />,
-        5: <Skeleton key={`skeleton-payment-type-${index}`} width={150} />,
-      }))
+      return []
     }
 
     return data.getPaymentsByUser.items.map((el: Partial<SubscriptionByPaymentModel>) => ({

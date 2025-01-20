@@ -1,5 +1,4 @@
 import * as React from 'react'
-import Skeleton from 'react-loading-skeleton'
 
 import { GetUsersQuery, UserBlockStatus } from '@/common/__generated-types__/graphql'
 import { TableFactory } from '@/common/ui/table-factory/TableFactory'
@@ -45,17 +44,7 @@ export const UsersTable = () => {
   ]
   const getTableData = (data: GetUsersQuery | undefined, refetch: () => void) => {
     if (!data) {
-      return Array.from({ length: 8 }).map((_, index) => ({
-        1: (
-          <div className={s.table__users} key={`skeleton-id-${index}`}>
-            <Skeleton width={100} />
-          </div>
-        ),
-        2: <Skeleton width={120} />,
-        3: <Skeleton width={150} />,
-        4: <Skeleton width={100} />,
-        5: <Skeleton width={50} />,
-      }))
+      return []
     }
 
     return data.getUsers.users.map(user => {
