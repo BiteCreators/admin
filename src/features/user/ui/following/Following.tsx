@@ -18,17 +18,18 @@ export const Following = () => {
     options: USERS_SORT_BY,
   })
 
-  const getTableData = (data: GetFollowingQuery | undefined) =>
-    data
-      ? data.getFollowing.items.map(el => {
-          return {
-            1: el.userId,
-            2: el.userName,
-            3: <Link href={`/users/${el.userId}`}>{el.userName}</Link>,
-            4: new Date(el.createdAt).toLocaleDateString(),
-          }
-        })
-      : []
+  const getTableData = (data: GetFollowingQuery | undefined) => {
+    if (!data) {
+      return []
+    }
+
+    return data.getFollowing.items.map(el => ({
+      1: el.userId,
+      2: el.userName,
+      3: <Link href={`/users/${el.userId}`}>{el.userName}</Link>,
+      4: new Date(el.createdAt).toLocaleDateString(),
+    }))
+  }
 
   const headers: TableHeader[] = [
     {

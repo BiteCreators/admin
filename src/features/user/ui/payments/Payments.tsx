@@ -14,18 +14,19 @@ export const Payments = () => {
 
   const t = useScopedTranslation('AdminPayments')
 
-  const getTableData = (data: GetPaymentsByUserQuery | undefined) =>
-    data
-      ? data.getPaymentsByUser.items.map((el: Partial<SubscriptionByPaymentModel>) => {
-          return {
-            1: new Date(el.dateOfPayment).toLocaleDateString(),
-            2: new Date(el.endDate).toLocaleDateString(),
-            3: `$${el.price}`,
-            4: el.type,
-            5: el.paymentType,
-          }
-        })
-      : []
+  const getTableData = (data: GetPaymentsByUserQuery | undefined) => {
+    if (!data) {
+      return []
+    }
+
+    return data.getPaymentsByUser.items.map((el: Partial<SubscriptionByPaymentModel>) => ({
+      1: new Date(el.dateOfPayment).toLocaleDateString(),
+      2: new Date(el.endDate).toLocaleDateString(),
+      3: `$${el.price}`,
+      4: el.type,
+      5: el.paymentType,
+    }))
+  }
 
   const headers: TableHeader[] = [
     {

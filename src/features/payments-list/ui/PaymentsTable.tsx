@@ -20,26 +20,29 @@ export const PaymentsTable = () => {
     options: PAYMENTS_SORT_BY,
   })
 
-  const getTableData = (data?: GetPaymentsQuery) =>
-    data
-      ? data.getPayments.items.map(item => {
-          const paymentMethod = formatPaymentMethod(item?.paymentMethod)
-          const paymentType = formatSubscriptionType(item.type)
+  const getTableData = (data?: GetPaymentsQuery) => {
+    if (!data) {
+      return []
+    }
 
-          return {
-            1: (
-              <div className={s.usernameCol}>
-                <Avatar avatarURL={item.avatars?.[0]?.url || ''} />
-                {item.userName}
-              </div>
-            ),
-            2: new Date(item.createdAt).toLocaleDateString(),
-            3: <span className={s.amountCol}>{item.amount}$</span>,
-            4: <span>{paymentType}</span>,
-            5: <span>{paymentMethod}</span>,
-          }
-        })
-      : []
+    return data.getPayments.items.map(item => {
+      const paymentMethod = formatPaymentMethod(item?.paymentMethod)
+      const paymentType = formatSubscriptionType(item.type)
+
+      return {
+        1: (
+          <div className={s.usernameCol}>
+            <Avatar avatarURL={item.avatars?.[0]?.url || ''} />
+            {item.userName}
+          </div>
+        ),
+        2: new Date(item.createdAt).toLocaleDateString(),
+        3: <span className={s.amountCol}>{item.amount}$</span>,
+        4: <span>{paymentType}</span>,
+        5: <span>{paymentMethod}</span>,
+      }
+    })
+  }
 
   const headers: TableHeader[] = [
     {

@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import Skeleton from 'react-loading-skeleton'
 
 import { useUploadedPosts } from '@/features/user/model/useUploadPosts'
 import { Alert, Loader, Typography } from '@byte-creators/ui-kit'
@@ -26,7 +27,13 @@ export const UploadedPosts = () => {
   }, [query.id])
 
   if (loading && posts.length === 0) {
-    return <Loader />
+    return (
+      <div className={style.uploadedPhotosList}>
+        {Array.from({ length: 8 }).map((_, index) => (
+          <Skeleton height={260} key={index} style={{ borderRadius: '8px' }} width={260} />
+        ))}
+      </div>
+    )
   }
   if (error) {
     return <Alert message={error.message} type={'error'} />
