@@ -52,6 +52,7 @@ export const TableFactory = <TRes, TVars extends Record<string, any>>({
 
   const handlePageSizeChange = (pageSize: string) => {
     setPageSize(+pageSize)
+    setPageNumber(1)
   }
   const handlePageNumberChange = (pageNumber: number) => {
     setPageNumber(pageNumber)
@@ -66,6 +67,7 @@ export const TableFactory = <TRes, TVars extends Record<string, any>>({
 
   if (data || loading) {
     const tableData = data ? getTableData(data, handleRefetch) : []
+    const pagesCount = data ? getPagesCount(data, pageSize) : 1
 
     return (
       <>
@@ -75,12 +77,12 @@ export const TableFactory = <TRes, TVars extends Record<string, any>>({
           loading={loading}
           tableData={loading ? getTableData(undefined, handleRefetch) : tableData}
         />
-        {tableData.length >= pageSize && !loading && (
+        {pagesCount > 1 && !loading && (
           <Pagination
             currentPage={pageNumber}
             onChangePagesPortion={handlePageSizeChange}
             onClickPaginationButton={handlePageNumberChange}
-            pagesCount={data ? getPagesCount(data, pageSize) : 1}
+            pagesCount={pagesCount}
             pagesPortion={String(pageSize) || '10'}
             pagesPortionOptions={pagesPortionOptions}
           />
