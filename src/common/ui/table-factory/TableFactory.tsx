@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { SortDirection } from '@/common/__generated-types__/graphql'
 import { QueryParams } from '@/common/types/queryParams.type'
@@ -40,7 +40,7 @@ export const TableFactory = <TRes, TVars extends Record<string, any>>({
     errors: { noItemsFound },
   } = useScopedTranslation('AdminUserProfile')
 
-  const { direction, search, sortBy }: QueryParams = router.query
+  const { block_status_filter, direction, search, sortBy }: QueryParams = router.query
 
   const { data, error, loading, refetch } = useQuery(query, {
     fetchPolicy: 'no-cache',
@@ -64,6 +64,12 @@ export const TableFactory = <TRes, TVars extends Record<string, any>>({
   const handleRefetch = () => {
     refetch({ pageNumber, pageSize } as unknown as Partial<TVars>)
   }
+
+  useEffect(() => {
+    if (search) {
+      setPageNumber(1)
+    }
+  }, [search, block_status_filter])
 
   if (error) {
     return <Alert message={error.message} type={'error'} />
