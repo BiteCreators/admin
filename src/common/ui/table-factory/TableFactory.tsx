@@ -4,6 +4,7 @@ import { SortDirection } from '@/common/__generated-types__/graphql'
 import { QueryParams } from '@/common/types/queryParams.type'
 import { MaybeMasked, TypedDocumentNode, useQuery } from '@apollo/client'
 import { Alert, Pagination, Table, TableData, TableHeader, Typography } from '@byte-creators/ui-kit'
+import { useScopedTranslation } from '@byte-creators/utils'
 import { useRouter } from 'next/router'
 
 const pagesPortionOptions = ['6', '8', '10', '20', '30', '50', '100']
@@ -25,7 +26,7 @@ type Props<TRes, TVars extends Record<string, any>> = {
 export const TableFactory = <TRes, TVars extends Record<string, any>>({
   classNameHeadersItem,
   defaultPageSize,
-  emptyMessage = 'No items found',
+  emptyMessage,
   extraVariables,
   getPagesCount,
   getTableData,
@@ -35,6 +36,9 @@ export const TableFactory = <TRes, TVars extends Record<string, any>>({
   const router = useRouter()
   const [pageNumber, setPageNumber] = useState<number>(1)
   const [pageSize, setPageSize] = useState<number>(defaultPageSize || 10)
+  const {
+    errors: { noItemsFound },
+  } = useScopedTranslation('AdminUserProfile')
 
   const { direction, search, sortBy }: QueryParams = router.query
 
@@ -87,7 +91,9 @@ export const TableFactory = <TRes, TVars extends Record<string, any>>({
             pagesPortionOptions={pagesPortionOptions}
           />
         )}
-        {!loading && tableData.length === 0 && <Typography>{emptyMessage}</Typography>}
+        {!loading && tableData.length === 0 && (
+          <Typography>{emptyMessage ?? noItemsFound}</Typography>
+        )}
       </>
     )
   }
