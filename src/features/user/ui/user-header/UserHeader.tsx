@@ -1,4 +1,3 @@
-import * as React from 'react'
 import Skeleton from 'react-loading-skeleton'
 
 import { formatDate } from '@/common/lib/utils/formatDate'
@@ -6,6 +5,7 @@ import { useGetUser } from '@/features/user/model/useGetUser'
 import { Alert, Avatar, Typography } from '@byte-creators/ui-kit'
 import { ArrowBackOutline } from '@byte-creators/ui-kit/icons'
 import { useScopedTranslation } from '@byte-creators/utils'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import cl from './userHeader.module.scss'
@@ -70,7 +70,7 @@ export const UserHeader = ({}: Props) => {
             {user.profile.firstName || ' '} {user.profile.lastName || ' '}
           </Typography>
           <Typography className={cl.username} variant={'regular-link'}>
-            {user?.userName}
+            <Link href={`https://inctbc.ru/profile/${user.id}`}>{user?.userName}</Link>
           </Typography>
         </div>
       </div>
