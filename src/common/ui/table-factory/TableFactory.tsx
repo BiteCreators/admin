@@ -38,7 +38,7 @@ export const TableFactory = <TRes, TVars extends Record<string, any>>({
   const [pageSize, setPageSize] = useState<number>(defaultPageSize || 10)
   const {
     errors: { noItemsFound },
-  } = useScopedTranslation('AdminUserProfile')
+  } = useScopedTranslation('Common')
 
   const { block_status_filter, direction, search, sortBy }: QueryParams = router.query
 
