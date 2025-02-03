@@ -2,6 +2,7 @@ import { GetPaymentsQuery } from '@/common/__generated-types__/graphql'
 import { TableFactory } from '@/common/ui/table-factory/TableFactory'
 import { useTableSortStore } from '@/entities/sort'
 import { Avatar, TableHeader } from '@byte-creators/ui-kit'
+import { useScopedTranslation } from '@byte-creators/utils'
 
 import s from './paymentsTable.module.scss'
 
@@ -66,9 +67,14 @@ export const PaymentsTable = () => {
     },
   ]
 
+  const {
+    errors: { noUsersFound },
+  } = useScopedTranslation('AdminUserProfile')
+
   return (
     <TableFactory
       defaultPageSize={6}
+      emptyMessage={noUsersFound}
       getPagesCount={getPagesCount}
       getTableData={getTableData}
       headers={headers}

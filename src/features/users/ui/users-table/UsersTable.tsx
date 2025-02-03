@@ -1,5 +1,3 @@
-import * as React from 'react'
-
 import { GetUsersQuery, UserBlockStatus } from '@/common/__generated-types__/graphql'
 import { TableFactory } from '@/common/ui/table-factory/TableFactory'
 import { USERS_SORT_BY, useTableSortStore } from '@/entities/sort'
@@ -16,6 +14,9 @@ import { Options } from '../options/Options'
 
 export const UsersTable = () => {
   const t = useScopedTranslation('FollowersAdmin')
+  const {
+    errors: { noUsersFound },
+  } = useScopedTranslation('AdminUserProfile')
   const { query } = useRouter()
   const [_, { CreatedAtSortButton, UserNameSortButton }] = useTableSortStore({
     id: 'usersTable',
@@ -79,6 +80,7 @@ export const UsersTable = () => {
   return (
     <TableFactory
       defaultPageSize={8}
+      emptyMessage={noUsersFound}
       extraVariables={{
         statusFilter: block_status_filter || UserBlockStatus.All,
       }}
