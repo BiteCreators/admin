@@ -15,8 +15,8 @@ importers:
         specifier: ^1.0.5
         version: 1.0.5(wie7w7vsvzk7t7lb55k5zgfmlu)
       '@byte-creators/ui-kit':
-        specifier: ^1.6.1
-        version: 1.6.3(3xprvvz6u5rzzkmwhdwmnnvoy4)
+        specifier: ^1.7.1
+        version: 1.7.1(3xprvvz6u5rzzkmwhdwmnnvoy4)
       '@byte-creators/utils':
         specifier: ^1.9.0
         version: 1.9.0(b5qqdpokcm2qwfhfeqawwuljyi)
@@ -422,8 +422,8 @@ packages:
       tailwindcss: ^3.4.1
       typescript: ^5
 
-  '@byte-creators/ui-kit@1.6.3':
-    resolution: {integrity: sha512-/0QnwlbDdNHuwYQQkuXP+TaazU1llrwmuetRx1ptUqt9GiavXwuZ1mt552CAu860GIbxT9G8BcV1nSpd9iO9oA==}
+  '@byte-creators/ui-kit@1.7.1':
+    resolution: {integrity: sha512-5lc7+7qRHPyLfKMhIl+5LhyEpaPEp8qL2Y9raUKHF31g3Ztfcdqa/fdSKwzqn1hMjLMdQwTB8PS4hiJJRAV6SQ==}
     peerDependencies:
       '@rollup/plugin-commonjs': ^26.0.1
       '@rollup/plugin-node-resolve': ^15.2.3
@@ -5824,7 +5824,7 @@ snapshots:
       tailwindcss: 3.4.17(ts-node@10.9.2(@types/node@20.17.16)(typescript@5.7.3))
       typescript: 5.7.3
 
-  '@byte-creators/ui-kit@1.6.3(3xprvvz6u5rzzkmwhdwmnnvoy4)':
+  '@byte-creators/ui-kit@1.7.1(3xprvvz6u5rzzkmwhdwmnnvoy4)':
     dependencies:
       '@babel/runtime': 7.26.7
       '@byte-creators/config': 1.0.5(wie7w7vsvzk7t7lb55k5zgfmlu)
@@ -6334,7 +6334,7 @@ snapshots:
   '@graphql-tools/optimize@2.0.0(graphql@16.10.0)':
     dependencies:
       graphql: 16.10.0
-      tslib: 2.6.3
+      tslib: 2.8.1
 
   '@graphql-tools/prisma-loader@8.0.17(@types/node@20.17.16)(encoding@0.1.13)(graphql@16.10.0)':
     dependencies:
@@ -6367,7 +6367,7 @@ snapshots:
       '@ardatan/relay-compiler': 12.0.1(@babel/core@7.26.7)(encoding@0.1.13)(graphql@16.10.0)
       '@graphql-tools/utils': 10.7.2(graphql@16.10.0)
       graphql: 16.10.0
-      tslib: 2.6.3
+      tslib: 2.8.1
     transitivePeerDependencies:
       - '@babel/core'
       - encoding
