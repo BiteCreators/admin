@@ -1,4 +1,4 @@
-import { RefObject, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { Post } from '@/common/__generated-types__/graphql'
 import { GET_POSTS } from '@/features/posts/api/postsQuery'
@@ -8,102 +8,125 @@ import { UNBAN_USER } from '@/features/users/api/unbanUserQuery'
 import { useLazyQuery, useMutation, useSubscription } from '@apollo/client'
 import { useIntersectionObserver, useScopedTranslation } from '@byte-creators/utils'
 
-export const usePostsList = () => {
+export const usePostsList = (term: string | undefined) => {
   const t = useScopedTranslation('UserslistOptions')
-  const [isOpenBanModal, setIsOpenBanModal] = useState<boolean>(false)
+  const [error, setError] = useState<null | string>(null)
+  const triggerGetPost = useRef<HTMLDivElement>(null)
 
   const [cursorId, setCursorId] = useState(0)
   const [localPosts, setLocalPosts] = useState<Post[]>([])
-  const triggerElementRef = useRef<HTMLDivElement>(null)
 
-  // const [banUser] = useMutation(BAN_USER, {
-  //   onCompleted: () => {
-  //     console.log('ban completed')
-  //   },
-  // })
-  // const [unbanUser] = useMutation(UNBAN_USER, {
-  //   onCompleted: () => {
-  //     console.log('unban completed')
-  //   },
-  // })
-
-  const { data } = useSubscription(POST_SUBSCRIPTION, {
-    fetchPolicy: 'no-cache',
-    onData: postData => {
-      console.log('post data:', postData)
-    },
+  const [isOpenBanModal, setIsOpenBanModal] = useState<boolean>(false)
+  const [isBan, setIsBan] = useState<boolean>(false)
+  const [reason, setReason] = useState<string>('')
+  const [banUserData, setBanUserData] = useState<{ userId: number; userName: string }>({
+    userId: 0,
+    userName: '',
   })
 
-  // const {
-  //   data: postSubscriptionData,
-  //   error: postSubscriptionError,
-  //   loading: postSubscriptionLoading,
-  // } = useSubscription(POST_SUBSCRIPTION, {
-  //   fetchPolicy: 'no-cache',
-  //   onData: ({ data }) => {
-  //     console.log('New data received:', data)
-  //   },
-  // })
-
-  const [fetchPosts, { error: getPostError, loading: getPostLoading }] = useLazyQuery(GET_POSTS, {
-    onCompleted: posts => {
-      if (posts?.getPosts.items.length > 0) {
-        if (!localPosts.map(post => post.id).includes(posts.getPosts.items[0].id)) {
-          setLocalPosts((prev: Post[]) => [...prev, ...posts.getPosts.items])
-          setCursorId(posts.getPosts.items.at(-1)?.id || 0)
+  const [fetchPosts, { error: getPostError, loading: getPostLoading, refetch }] = useLazyQuery(
+    GET_POSTS,
+    {
+      onCompleted: posts => {
+        if (term) {
+          setLocalPosts(posts.getPosts.items)
+        } else {
+          if (posts?.getPosts.items.length > 0) {
+            if (!localPosts.map(post => post.id).includes(posts.getPosts.items[0].id)) {
+              setLocalPosts((prev: Post[]) => [...prev, ...posts.getPosts.items])
+              setCursorId(posts.getPosts.items.at(-1)?.id || 0)
+            }
+          }
         }
-      }
+      },
+    }
+  )
+
+  // get new post from socket
+
+  // const { data } = useSubscription(POST_SUBSCRIPTION, {
+  //   fetchPolicy: 'no-cache',
+  //   onData: postData => {
+  //     console.log('new post:', postData)
+  //   },
+  // })
+
+  const [banUser] = useMutation(BAN_USER, {
+    onCompleted: () => {
+      console.log('ban completed')
     },
   })
 
-  console.log('subpost', data)
-  // console.log('localPosts', localPosts)
-
-  useEffect(() => {
-    fetchPosts()
-  }, [])
+  const [unbanUser] = useMutation(UNBAN_USER, {
+    onCompleted: () => {
+      console.log('unban completed')
+    },
+  })
 
   useIntersectionObserver(
-    triggerElementRef,
+    triggerGetPost,
     () => {
       fetchPosts({ variables: { endCursorPostId: cursorId, pageSize: 9 } })
     },
     { rootMargin: '50px' }
   )
 
-  // useEffect(() => {
-  //   const observer = new IntersectionObserver(
-  //     entries => {
-  //       if (entries[0].isIntersecting) {
-  //         fetchPosts({ variables: { endCursorPostId: cursorId, pageSize: 9 } })
-  //         handlerUnobserve()
-  //       }
-  //     },
-  //     { rootMargin: '50px' }
-  //   )
-  //
-  //   if (triggerElementRef.current) {
-  //     observer.observe(triggerElementRef.current)
-  //   }
-  //
-  //   const handlerUnobserve = () => {
-  //     if (triggerElementRef.current) {
-  //       observer.unobserve(triggerElementRef.current)
-  //     }
-  //   }
-  //
-  //   return () => {
-  //     handlerUnobserve()
-  //   }
-  // }, [localPosts])
+  const handlerBlockBtn = (userName: string, userId: number, ban: boolean) => {
+    setIsBan(ban)
+    setBanUserData({ userId, userName })
+    setIsOpenBanModal(true)
+  }
+
+  const handlerOnConfirm = async () => {
+    if (isBan) {
+      try {
+        await banUser({
+          variables: { banReason: reason, userId: banUserData.userId },
+        })
+      } catch (error) {
+        setError('The user is immune')
+      }
+    } else {
+      try {
+        await unbanUser({ variables: { userId: banUserData.userId } })
+      } catch (error) {
+        setError('Lifetime ban')
+      }
+    }
+  }
+
+  if (getPostError) {
+    setError('error get post')
+  }
+
+  useEffect(() => {
+    if (term !== undefined) {
+      fetchPosts({
+        variables: {
+          searchTerm: term,
+        },
+      })
+    } else {
+      setLocalPosts([])
+      fetchPosts()
+    }
+  }, [term])
+
+  const messageInModal = `${t.youSure} ${isBan ? t.unban : t.ban}, ${banUserData.userName}`
 
   return {
+    error,
     getPostLoading,
+    handlerBlockBtn,
+    handlerOnConfirm,
+    isBan,
     isOpenBanModal,
     localPosts,
-    // postSubscriptionLoading,
+    messageInModal,
+    reason,
     setIsOpenBanModal,
+    setReason,
     t,
-    triggerElementRef,
+    triggerGetPost,
   }
 }
