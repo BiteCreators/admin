@@ -1,22 +1,16 @@
 import React from 'react'
 
 import { usePostsList } from '@/features/posts/model/usePostsList'
-import {
-  ActionConfirmation,
-  Alert,
-  Loader,
-  PostCard,
-  Select,
-  SelectItem,
-} from '@byte-creators/ui-kit'
+import { ActionConfirmation, Alert, Loader, Select, SelectItem } from '@byte-creators/ui-kit'
+import { PostCard } from '@byte-creators/ui-kit/components'
 import { useRouter } from 'next/router'
 
 import style from './postsList.module.scss'
-import s from '@/features/users/ui/modals/styles.module.scss'
 
 export const PostsList = () => {
   const { query } = useRouter()
   const {
+    banNotification,
     error,
     getPostLoading,
     handlerBlockBtn,
@@ -86,6 +80,7 @@ export const PostsList = () => {
           )}
         </ActionConfirmation>
         {error && <Alert message={error} purpose={'toast'} type={'error'} />}
+        {banNotification && <Alert message={banNotification} purpose={'toast'} type={'success'} />}
         {getPostLoading && <Loader />}
       </div>
     </>

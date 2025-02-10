@@ -11,6 +11,7 @@ import { useIntersectionObserver, useScopedTranslation } from '@byte-creators/ut
 export const usePostsList = (term: string | undefined) => {
   const t = useScopedTranslation('UserslistOptions')
   const [error, setError] = useState<null | string>(null)
+  const [banNotification, setBanNotification] = useState<null | string>(null)
   const triggerGetPost = useRef<HTMLDivElement>(null)
 
   const [cursorId, setCursorId] = useState(0)
@@ -53,13 +54,13 @@ export const usePostsList = (term: string | undefined) => {
 
   const [banUser] = useMutation(BAN_USER, {
     onCompleted: () => {
-      console.log('ban completed')
+      setBanNotification(`User ${banUserData.userName} is banned`)
     },
   })
 
   const [unbanUser] = useMutation(UNBAN_USER, {
     onCompleted: () => {
-      console.log('unban completed')
+      setBanNotification(`User ${banUserData.userName} is unbanned`)
     },
   })
 
@@ -78,7 +79,7 @@ export const usePostsList = (term: string | undefined) => {
   }
 
   const handlerOnConfirm = async () => {
-    if (isBan) {
+    if (!isBan) {
       try {
         await banUser({
           variables: { banReason: reason, userId: banUserData.userId },
@@ -115,6 +116,7 @@ export const usePostsList = (term: string | undefined) => {
   const messageInModal = `${t.youSure} ${isBan ? t.unban : t.ban}, ${banUserData.userName}`
 
   return {
+    banNotification,
     error,
     getPostLoading,
     handlerBlockBtn,
