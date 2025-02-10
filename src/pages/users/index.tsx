@@ -1,5 +1,5 @@
-import { Search } from '@/features/search'
 import { BlockUsersFilter, UsersTable } from '@/features/users'
+import { SearchComponent } from '@byte-creators/ui-kit/components'
 
 import style from './users.module.scss'
 
@@ -7,7 +7,7 @@ const Users = () => {
   return (
     <div className={style.usersListContainer}>
       <div className={style.containerForFilterAndSearch}>
-        <Search />
+        <SearchComponent />
         <BlockUsersFilter />
       </div>
       <UsersTable />
