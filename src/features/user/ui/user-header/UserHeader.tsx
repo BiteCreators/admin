@@ -64,7 +64,7 @@ export const UserHeader = ({}: Props) => {
         </button>
       </div>
       <div className={cl.nameAndPhotoContainer}>
-        <Avatar avatarURL={user.profile.avatars?.[0]?.url || ''} className={cl.avatar} />
+        <Avatar avatarURL={user.profile.avatars?.[0]?.url || ''} imgStyles={cl.avatar} />
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
           <Typography variant={'h1'}>
             {user.profile.firstName || ' '} {user.profile.lastName || ' '}

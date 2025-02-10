@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { GetFollowersQuery } from '@/common/__generated-types__/graphql'
 import { TableFactory } from '@/common/ui/table-factory/TableFactory'
 import { USERS_SORT_BY, useTableSortStore } from '@/entities/sort'
