@@ -56,6 +56,7 @@ export const useSearch = ({
   return {
     handleChangeSearchInput,
     handleClickSearchButton,
+    setValue,
     t,
     value,
   }

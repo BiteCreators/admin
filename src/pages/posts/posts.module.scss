@@ -1,5 +1,12 @@
 .postsListContainer {
-  margin: 0 60px 0 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.postsListWrap {
+  width: 100%;
+  max-width: 980px;
+  margin: 0 24px;
 }
 
 .searchSection {

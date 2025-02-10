@@ -1,4 +1,7 @@
+import { useEffect } from 'react'
+
 import { Input } from '@byte-creators/ui-kit'
+import { useRouter } from 'next/router'
 
 import style from './Search.module.scss'
 
@@ -19,12 +22,20 @@ export const Search = ({
   paramName = 'search',
   withAutoSearch = true,
 }: Props) => {
-  const { handleChangeSearchInput, handleClickSearchButton, t, value } = useSearch({
+  const { handleChangeSearchInput, handleClickSearchButton, setValue, t, value } = useSearch({
     debounceDelay,
     handleSearchButtonClick,
     paramName,
     withAutoSearch,
   })
+
+  const { query } = useRouter()
+
+  useEffect(() => {
+    if (query.search) {
+      setValue(query.search as string)
+    }
+  }, [query.search])
 
   return (
     <div className={fullWidth ? style.searchInputFullWidth : style.searchInput}>
