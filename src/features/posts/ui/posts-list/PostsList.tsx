@@ -41,6 +41,7 @@ export const PostsList = () => {
                 createdAt={post.createdAt}
                 description={post.description}
                 isAdmin
+                linkOption={'users/'}
                 onClickBlockButton={() =>
                   handlerBlockBtn(
                     post.postOwner.userName,

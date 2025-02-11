@@ -15,8 +15,8 @@ importers:
         specifier: ^1.0.5
         version: 1.0.5(wie7w7vsvzk7t7lb55k5zgfmlu)
       '@byte-creators/ui-kit':
-        specifier: ^1.9.2
-        version: 1.9.2(ijnmruaj7r3zo2uflm2uodzyoq)
+        specifier: ^1.9.3
+        version: 1.9.3(ijnmruaj7r3zo2uflm2uodzyoq)
       '@byte-creators/utils':
         specifier: ^1.9.0
         version: 1.9.0(b5qqdpokcm2qwfhfeqawwuljyi)
@@ -419,8 +419,8 @@ packages:
       tailwindcss: ^3.4.1
       typescript: ^5
 
-  '@byte-creators/ui-kit@1.9.2':
-    resolution: {integrity: sha512-qDpyeSenNpNPIQ2FAiAZkD3GjvZmLj6s6n/y7uBdMnjJOrt8WDbL5l43KfDJ2dho3cstwm9N/Gyl0Lt1TKZd2A==}
+  '@byte-creators/ui-kit@1.9.3':
+    resolution: {integrity: sha512-AfB4saAUwm2DnLfVDnomuwXQal76si8vY0RlItrAS0FaD+yT9pjC9BYpJGwlEUQGaQ7k+oenXQ1iJWyuVUpVQg==}
     peerDependencies:
       '@rollup/plugin-commonjs': ^26.0.1
       '@rollup/plugin-node-resolve': ^15.2.3
@@ -1345,7 +1345,7 @@ packages:
         optional: true
       '@types/react-dom':
         optional: true
-        
+
   '@radix-ui/react-select@2.1.6':
     resolution: {integrity: sha512-T6ajELxRvTuAMWH0YmRJ1qez+x4/7Nq7QIx7zJ0VK3qaEWdnWpNbEDnmWldG1zBDwqrLy5aLMUWcoGirVj5kMg==}
     peerDependencies:
@@ -5821,7 +5821,7 @@ snapshots:
       tailwindcss: 3.4.17(ts-node@10.9.2(@types/node@20.17.16)(typescript@5.7.3))
       typescript: 5.7.3
 
-  '@byte-creators/ui-kit@1.9.2(ijnmruaj7r3zo2uflm2uodzyoq)':
+  '@byte-creators/ui-kit@1.9.3(ijnmruaj7r3zo2uflm2uodzyoq)':
     dependencies:
       '@babel/runtime': 7.26.7
       '@byte-creators/config': 1.0.5(wie7w7vsvzk7t7lb55k5zgfmlu)
@@ -6840,6 +6840,7 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.3.18
       '@types/react-dom': 18.3.5(@types/react@18.3.18)
+
   '@radix-ui/react-collection@1.1.2(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@radix-ui/react-compose-refs': 1.1.1(@types/react@18.3.18)(react@18.3.1)
@@ -6892,7 +6893,6 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.3.18
 
-
   '@radix-ui/react-dismissable-layer@1.1.5(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@radix-ui/primitive': 1.1.1
@@ -6905,8 +6905,8 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.3.18
       '@types/react-dom': 18.3.5(@types/react@18.3.18)
-  '@radix-ui/react-dropdown-menu@2.1.6(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
 
+  '@radix-ui/react-dropdown-menu@2.1.6(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@radix-ui/primitive': 1.1.1
       '@radix-ui/react-compose-refs': 1.1.1(@types/react@18.3.18)(react@18.3.1)
@@ -6970,7 +6970,7 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.3.18
       '@types/react-dom': 18.3.5(@types/react@18.3.18)
-      
+
   '@radix-ui/react-popper@1.2.2(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@floating-ui/react-dom': 2.1.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -7034,7 +7034,6 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.3.18
       '@types/react-dom': 18.3.5(@types/react@18.3.18)
-
 
   '@radix-ui/react-scroll-area@1.2.3(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
@@ -10553,7 +10552,7 @@ snapshots:
   rollup-pluginutils@2.8.2:
     dependencies:
       estree-walker: 0.6.1
-      
+
   rollup@4.34.6:
     dependencies:
       '@types/estree': 1.0.6
