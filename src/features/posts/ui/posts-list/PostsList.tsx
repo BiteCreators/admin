@@ -26,6 +26,13 @@ export const PostsList = () => {
     triggerGetPost,
   } = usePostsList(query.search as string | undefined)
 
+  //const skeletonItems = Array.from({ length: 4 }, (_, index) => (
+  //     <Skeleton borderRadius={6} height={300} key={index} style={{ display: 'flex' }} width={235} />
+  //   ))
+  //
+  //
+  // <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>{skeletonItems}</div>
+
   return (
     <>
       <div className={style.postsList}>
