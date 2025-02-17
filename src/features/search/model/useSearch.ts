@@ -1,6 +1,7 @@
 import { ChangeEvent, useEffect, useState } from 'react'
 
 import { removeParam, useDebounce, useScopedTranslation } from '@byte-creators/utils'
+import { useSearchParams } from 'next/navigation'
 import { useRouter } from 'next/router'
 
 export const useSearch = ({
@@ -18,6 +19,7 @@ export const useSearch = ({
   const debouncedValue = useDebounce(value, debounceDelay || 700)
   const router = useRouter()
   const t = useScopedTranslation('Navigation')
+  const params = useSearchParams()
 
   const redirectWithParam = (value?: string) => {
     if (value?.length === 0) {
@@ -43,6 +45,16 @@ export const useSearch = ({
       redirectWithParam(debouncedValue)
     }
   }, [debouncedValue])
+
+  useEffect(() => {
+    const searchTerm = params.get(paramName)
+
+    if (searchTerm) {
+      setValue(searchTerm)
+    } else if (searchTerm === null) {
+      setValue('')
+    }
+  }, [params, paramName])
 
   const handleChangeSearchInput = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.currentTarget.value)
