@@ -7,15 +7,19 @@ import { BAN_USER } from '@/features/users/api/banUserQuery'
 import { UNBAN_USER } from '@/features/users/api/unbanUserQuery'
 import { useLazyQuery, useMutation, useSubscription } from '@apollo/client'
 import { useIntersectionObserver, useScopedTranslation } from '@byte-creators/utils'
+import { useRouter } from 'next/router'
 
-export const usePostsList = (term: string | undefined) => {
+export const usePostsList = () => {
   const t = useScopedTranslation('UserslistOptions')
+  const { query } = useRouter()
   const [error, setError] = useState<null | string>(null)
   const [banNotification, setBanNotification] = useState<null | string>(null)
   const triggerGetPost = useRef<HTMLDivElement>(null)
 
   const [cursorId, setCursorId] = useState(0)
   const [localPosts, setLocalPosts] = useState<Post[]>([])
+
+  const [pageSize, setPageSize] = useState(true)
 
   const [isOpenBanModal, setIsOpenBanModal] = useState<boolean>(false)
   const [isBan, setIsBan] = useState<boolean>(false)
@@ -25,23 +29,19 @@ export const usePostsList = (term: string | undefined) => {
     userName: '',
   })
 
-  const [fetchPosts, { error: getPostError, loading: getPostLoading, refetch }] = useLazyQuery(
-    GET_POSTS,
-    {
-      onCompleted: posts => {
-        if (term) {
-          setLocalPosts(posts.getPosts.items)
-        } else {
-          if (posts?.getPosts.items.length > 0) {
-            if (!localPosts.map(post => post.id).includes(posts.getPosts.items[0].id)) {
-              setLocalPosts((prev: Post[]) => [...prev, ...posts.getPosts.items])
-              setCursorId(posts.getPosts.items.at(-1)?.id || 0)
-            }
-          }
+  const [fetchPosts, { error: getPostError, loading: getPostLoading }] = useLazyQuery(GET_POSTS, {
+    onCompleted: posts => {
+      if (posts.getPosts.pageSize === 0) {
+        setPageSize(false)
+      }
+      if (posts?.getPosts.items.length > 0) {
+        if (!localPosts.map(post => post.id).includes(posts.getPosts.items[0].id)) {
+          setLocalPosts((prev: Post[]) => [...prev, ...posts.getPosts.items])
+          setCursorId(posts.getPosts.items.at(-1)?.id || 0)
         }
-      },
-    }
-  )
+      }
+    },
+  })
 
   // get new post from socket
 
@@ -67,7 +67,13 @@ export const usePostsList = (term: string | undefined) => {
   useIntersectionObserver(
     triggerGetPost,
     () => {
-      fetchPosts({ variables: { endCursorPostId: cursorId, pageSize: 9 } })
+      if (query?.search) {
+        fetchPosts({
+          variables: { endCursorPostId: cursorId, pageSize: 9, searchTerm: query.search as string },
+        })
+      } else {
+        fetchPosts({ variables: { endCursorPostId: cursorId, pageSize: 9 } })
+      }
     },
     { rootMargin: '50px' }
   )
@@ -100,18 +106,23 @@ export const usePostsList = (term: string | undefined) => {
     setError('error get post')
   }
 
+  const handleSetSearchPost = async (term: string) => {
+    const res = await fetchPosts({ variables: { searchTerm: term } })
+
+    if (res.data) {
+      setLocalPosts(res.data.getPosts.items)
+    }
+  }
+
   useEffect(() => {
-    if (term !== undefined) {
-      fetchPosts({
-        variables: {
-          searchTerm: term,
-        },
-      })
+    setLocalPosts([])
+    if (query?.search) {
+      setPageSize(true)
+      handleSetSearchPost(query?.search as string)
     } else {
-      setLocalPosts([])
       fetchPosts()
     }
-  }, [term])
+  }, [query?.search])
 
   const messageInModal = `${t.youSure} ${isBan ? t.unban : t.ban}, ${banUserData.userName}`
 
@@ -125,6 +136,7 @@ export const usePostsList = (term: string | undefined) => {
     isOpenBanModal,
     localPosts,
     messageInModal,
+    pageSize,
     reason,
     setIsOpenBanModal,
     setReason,

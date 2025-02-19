@@ -8,7 +8,6 @@ import { useRouter } from 'next/router'
 import style from './postsList.module.scss'
 
 export const PostsList = () => {
-  const { query } = useRouter()
   const {
     banNotification,
     error,
@@ -19,12 +18,13 @@ export const PostsList = () => {
     isOpenBanModal,
     localPosts,
     messageInModal,
+    pageSize,
     reason,
     setIsOpenBanModal,
     setReason,
     t,
     triggerGetPost,
-  } = usePostsList(query.search as string | undefined)
+  } = usePostsList()
 
   //const skeletonItems = Array.from({ length: 4 }, (_, index) => (
   //     <Skeleton borderRadius={6} height={300} key={index} style={{ display: 'flex' }} width={235} />
@@ -41,7 +41,7 @@ export const PostsList = () => {
             <div
               className={style.post}
               key={post.id}
-              ref={!query.search && arr.length - 1 === i ? triggerGetPost : null}
+              ref={pageSize && arr.length - 1 === i ? triggerGetPost : null}
             >
               <PostCard
                 avatarOwner={post.postOwner.avatars?.[0]?.url || ''}
