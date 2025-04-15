@@ -1,0 +1,25 @@
+@import '@/styles/vars';
+
+.table {
+  max-width: 1500px;
+  vertical-align: middle;
+}
+
+.headers {
+  &:last-child {
+    width: 24px;
+  }
+}
+
+.users {
+  display: flex;
+  gap: 12px;
+}
+
+.bun {
+  width: 24px;
+}
+
+.pagination {
+  justify-content: flex-start;
+}

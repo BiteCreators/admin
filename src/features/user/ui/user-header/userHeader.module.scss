@@ -1,0 +1,46 @@
+@import '@/styles/vars';
+
+.currentUserContainer {
+  width: 100%;
+}
+
+.back {
+  display: flex;
+  gap: 12px;
+  margin: 0 0 24px 0;
+
+  button {
+    display: flex;
+    gap: 12px;
+  }
+}
+
+.nameAndPhotoContainer {
+  display: flex;
+  gap: 24px;
+}
+
+.avatar {
+  width: 60px;
+}
+
+.username {
+  color: $color-light-100;
+  cursor: default;
+}
+
+.lightText {
+  color: $color-light-900;
+}
+
+.userInfoContainer {
+  margin-top: 20px;
+  display: flex;
+  gap: 14px;
+  margin-bottom: 30px;
+}
+
+.userInfo {
+  max-width: 170px;
+  width: 100%;
+}

@@ -1,0 +1,26 @@
+@import '@/styles/vars.scss';
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+.navItemContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-right: 15px;
+}
+
+.navbarContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: absolute;
+  height: 100vh;
+  padding-top: 72px;
+  padding-left: 60px;
+  padding-bottom: 36px;
+  border-right: 1px solid $color-dark-300;
+}
