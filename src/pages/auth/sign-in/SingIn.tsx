@@ -1,10 +1,11 @@
 import React from 'react'
 
 import { AuthLayout } from '@/application/layouts/AuthLayout'
-import { SignInForm } from '@/features/auth'
+
 import { NextPageWithLayout } from '@/pages/_app'
 
 import cl from '../sign-in/sign-in.module.scss'
+import { SignInForm } from '@/features/auth'
 
 const SignIn: NextPageWithLayout = () => {
   return (
