@@ -1,5 +1,4 @@
 import { useSignIn } from '@/features/auth/model/useSignIn'
-import { AcceptCookieAlert } from '@/features/auth/ui/AcceptCookieAlert'
 import { Alert, Button, Card, FormInput, Typography } from '@byte-creators/ui-kit'
 
 import cl from './styles/sign-in-form.module.scss'
@@ -43,7 +42,7 @@ export const SignInForm = () => {
           />
         )}
       </Card>
-      <AcceptCookieAlert setUseCookie={setUseCookie} useCookie={useCookie} />
+      {/*<AcceptCookieAlert setUseCookie={setUseCookie} useCookie={useCookie} />*/}
     </>
   )
 }
